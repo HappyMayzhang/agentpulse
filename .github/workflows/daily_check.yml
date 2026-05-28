@@ -1,0 +1,59 @@
+name: Daily SOTA Check
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 每天 UTC 02:00（北京时间 10:00）
+  workflow_dispatch:        # 支持手动触发
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run update check
+        id: check
+        run: |
+          python scripts/check_updates.py --ci
+          echo "has_updates=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true   # exit code 1 表示有更新，不视为 CI 失败
+
+      - name: Regenerate static site
+        if: steps.check.outcome == 'failure'   # exit 1 = 有更新
+        run: python scripts/generate_site.py
+
+      - name: Create Pull Request
+        if: steps.check.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: auto-update/sota-${{ github.run_id }}
+          commit-message: "data: auto-update SOTA scores"
+          title: "[Auto] SOTA 更新"
+          body: |
+            由 GitHub Actions 自动创建，检测到以下 benchmark 有 SOTA 更新。
+
+            **请人工审核后合并。**
+
+            ---
+            数据来源：Papers with Code API / 官方 leaderboard
+            运行时间：${{ github.event.repository.updated_at }}
+
+            > 合并前请验证：
+            > - [ ] 分数来源为官方 leaderboard 或论文原文
+            > - [ ] 模型名称使用官方名称（含版本号）
+            > - [ ] 日期为结果公布日期
+          labels: automated-update
+          delete-branch: true

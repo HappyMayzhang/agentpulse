@@ -44,7 +44,7 @@ PWC_BENCHMARK_MAP = {
 }
 
 PWC_API_BASE = "https://paperswithcode.com/api/v1"
-PWC_HEADERS  = {"User-Agent": "agent-bench-tracker/1.0 (github.com/agent-bench-tracker)"}
+PWC_HEADERS  = {"User-Agent": "agentpulse/1.0 (github.com/HappyMayzhang/agentpulse)"}
 
 
 def pwc_get_sota(benchmark_slug: str) -> dict | None:

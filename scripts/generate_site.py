@@ -145,7 +145,7 @@ def generate_html(data):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Bench Tracker</title>
+  <title>AgentPulse</title>
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
@@ -410,7 +410,7 @@ def generate_html(data):
 
 <header>
   <div class="header-inner">
-    <h1>Agent <span>Bench</span> Tracker</h1>
+    <h1>Agent<span>Pulse</span></h1>
     <div class="header-meta">
       追踪 <strong>{total}</strong> 个 Benchmark &nbsp;·&nbsp; 最后更新 <strong>{today}</strong>
     </div>
@@ -418,7 +418,7 @@ def generate_html(data):
 </header>
 
 <div class="tagline">
-  专注 Agent / Code / Math 方向的 SOTA 实时追踪 &nbsp;—&nbsp;
+  专注 Agent 方向的 SOTA 实时追踪 &nbsp;—&nbsp;
   关注"<em>现在谁最好、好多少、什么时候变化的</em>"。
   所有数据均来自公开来源，详见各 benchmark 官方网站。
 </div>
@@ -446,7 +446,7 @@ def generate_html(data):
 </main>
 
 <footer>
-  <a href="https://github.com/your-username/agent-bench-tracker" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://github.com/HappyMayzhang/agentpulse" target="_blank" rel="noopener">GitHub</a>
   &nbsp;·&nbsp; 数据来自各 benchmark 官方网站 &nbsp;·&nbsp; 发现错误？欢迎提 PR
 </footer>
 

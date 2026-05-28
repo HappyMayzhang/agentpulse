@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Bench Tracker</title>
+  <title>AgentPulse</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -268,27 +268,25 @@
 
 <header>
   <div class="header-inner">
-    <h1>Agent <span>Bench</span> Tracker</h1>
+    <h1>Agent<span>Pulse</span></h1>
     <div class="header-meta">
-      追踪 <strong>19</strong> 个 Benchmark &nbsp;·&nbsp; 最后更新 <strong>2026-05-28</strong>
+      追踪 <strong>7</strong> 个 Benchmark &nbsp;·&nbsp; 最后更新 <strong>2026-05-28</strong>
     </div>
   </div>
 </header>
 
 <div class="tagline">
-  专注 Agent / Code / Math 方向的 SOTA 实时追踪 &nbsp;—&nbsp;
+  专注 Agent 方向的 SOTA 实时追踪 &nbsp;—&nbsp;
   关注"<em>现在谁最好、好多少、什么时候变化的</em>"。
   所有数据均来自公开来源，详见各 benchmark 官方网站。
 </div>
 
 <div class="filter-bar">
   <button class="filter-btn active" data-filter="all">全部</button>
-<button class="filter-btn" data-filter="综合知识">综合知识</button>
-<button class="filter-btn" data-filter="数学推理">数学推理</button>
-<button class="filter-btn" data-filter="代码能力">代码能力</button>
-<button class="filter-btn" data-filter="Agent/工具调用">Agent/工具调用</button>
-<button class="filter-btn" data-filter="指令遵循">指令遵循</button>
-<button class="filter-btn" data-filter="中文对话">中文对话</button>
+<button class="filter-btn" data-filter="软件工程 Agent">软件工程 Agent</button>
+<button class="filter-btn" data-filter="环境交互 Agent">环境交互 Agent</button>
+<button class="filter-btn" data-filter="工具调用 Agent">工具调用 Agent</button>
+<button class="filter-btn" data-filter="通用 Agent">通用 Agent</button>
 </div>
 
 <div class="model-search">
@@ -307,10 +305,10 @@
 
 <main>
   
-    <section class="category" id="cat-综合知识" data-category="综合知识">
+    <section class="category" id="cat-软件工程-Agent" data-category="软件工程 Agent">
       <div class="category-header">
-        <h2>综合知识</h2>
-        <p class="category-desc">综合学科知识和推理能力评测</p>
+        <h2>软件工程 Agent</h2>
+        <p class="category-desc">在真实代码仓库中自主完成 issue 修复、功能开发等软件工程任务</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -327,147 +325,21 @@
           <tbody>
             
       <tr>
-        <td class="bm-name" title="多选题，需要深度专业知识推理">GPQA Diamond</td>
-        <td class="bm-desc">研究生级别科学题（生物/化学/物理），专家设计，防数据污染，非专业人员准确率约 34%</td>
-        <td class="bm-score"><span class="score score-high">94.6%</span></td>
-        <td class="bm-model">Claude Mythos Preview</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2311.12022" target="_blank" rel="noopener">论文</a> · <a href="https://artificialanalysis.ai/evaluations/gpqa-diamond" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="多选题 + 开放题，由全球顶尖学者出题，text-only 和多模态两个子集">HLE</td>
-        <td class="bm-desc">Humanity's Last Exam，2500 道极难题目，覆盖数学/科学/人文等数十个领域，专家在各自领域准确率约 90%，设计为当前 AI 无法轻松通过的终极闭卷基准</td>
-        <td class="bm-score"><span class="score score-low">44.7%</span></td>
-        <td class="bm-model">Gemini 3.1 Pro Preview</td>
-        <td class="bm-date">2026-05-25</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2501.14249" target="_blank" rel="noopener">论文</a> · <a href="https://agi.safe.ai/" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="多选题，10 个选项，比原版 MMLU 区分度更高">MMLU-Pro</td>
-        <td class="bm-desc">进阶版 MMLU，题目更难、选项更多（10 选 1），覆盖 14 个学科，减少猜测空间</td>
-        <td class="bm-score"><span class="score score-mid">89.8%</span></td>
-        <td class="bm-model">Gemini 3 Pro Preview</td>
-        <td class="bm-date">2026-04</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2406.01574" target="_blank" rel="noopener">论文</a> · <a href="https://benchlm.ai/benchmarks/mmluPro" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section class="category" id="cat-数学推理" data-category="数学推理">
-      <div class="category-header">
-        <h2>数学推理</h2>
-        <p class="category-desc">数学问题求解与推理能力评测</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Benchmark</th>
-              <th>简介</th>
-              <th>当前 SOTA</th>
-              <th>SOTA 模型</th>
-              <th>更新日期</th>
-              <th>链接</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-      <tr>
-        <td class="bm-name" title="填空题，答案为整数（0-999），需要多步推理；pass@1，averaged over 30 problems">AIME 2025</td>
-        <td class="bm-desc">美国数学邀请赛 2025 年题目（I+II，共 30 题），竞赛级难度，是当前区分顶尖模型的核心指标</td>
-        <td class="bm-score"><span class="score score-high">100.0%</span></td>
-        <td class="bm-model">Gemini 3 Pro / GPT-5.2 Pro</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://artofproblemsolving.com/wiki/index.php/2025_AIME" target="_blank" rel="noopener">论文</a> · <a href="https://artificialanalysis.ai/evaluations/aime-2025" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="填空题，答案为整数（0-999），pass@1 averaged over 30 problems">AIME 2026</td>
-        <td class="bm-desc">美国数学邀请赛 2026 年题目，是当前最新的竞赛级数学基准，部分顶尖模型已接近满分</td>
-        <td class="bm-score"><span class="score score-high">96.4%</span></td>
-        <td class="bm-model">Kimi K2.6</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://artofproblemsolving.com/wiki/index.php/2026_AIME" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/aime-2026" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="填空题，答案为整数（0-999）">AIME 2024</td>
-        <td class="bm-desc">美国数学邀请赛 2024 年题目，是 2025 年前模型能力分水岭</td>
-        <td class="bm-score"><span class="score score-unknown">—</span></td>
-        <td class="bm-model">—</td>
-        <td class="bm-date">—</td>
-        <td class="bm-links"><a href="https://artofproblemsolving.com/wiki/index.php/2024_AIME" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/aime" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="开放式答案，多步算术推理，8-bit 准确率">GSM8K</td>
-        <td class="bm-desc">8500 道小学数学题，用于基础数学推理对比；顶尖模型已接近饱和，保留作为参照基线</td>
-        <td class="bm-score"><span class="score score-unknown">—</span></td>
-        <td class="bm-model">—</td>
-        <td class="bm-date">—</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2110.14168" target="_blank" rel="noopener">论文</a></td>
-      </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section class="category" id="cat-代码能力" data-category="代码能力">
-      <div class="category-header">
-        <h2>代码能力</h2>
-        <p class="category-desc">代码生成、修复和软件工程能力评测</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Benchmark</th>
-              <th>简介</th>
-              <th>当前 SOTA</th>
-              <th>SOTA 模型</th>
-              <th>更新日期</th>
-              <th>链接</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-      <tr>
-        <td class="bm-name" title="pass@1，给定函数签名和 docstring，生成通过单元测试的代码">HumanEval</td>
-        <td class="bm-desc">OpenAI 出品，164 道 Python 函数补全题，是代码生成的传统基线，顶尖模型已趋于饱和</td>
-        <td class="bm-score"><span class="score score-high">97.6%</span></td>
-        <td class="bm-model">Claude Sonnet 4.5</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2107.03374" target="_blank" rel="noopener">论文</a> · <a href="https://pricepertoken.com/leaderboards/benchmark/humaneval" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="pass@1，生成通过测试用例的代码">MBPP</td>
-        <td class="bm-desc">Google 出品，~374 道 Python 编程题，覆盖算法和标准库使用，与 HumanEval 互补</td>
-        <td class="bm-score"><span class="score score-high">94.9%</span></td>
-        <td class="bm-model">—</td>
-        <td class="bm-date">2026</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2108.07732" target="_blank" rel="noopener">论文</a> · <a href="https://codesota.com/llm/humaneval-mbpp" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="给定 issue 和代码仓库，生成可通过所有测试用例的 patch">SWE-bench Verified</td>
-        <td class="bm-desc">真实 GitHub issue 修复任务，Verified 子集经人工验证质量，是 Agent 代码能力的新标准</td>
+        <td class="bm-name" title="给定 issue 描述和代码仓库，Agent 生成可通过所有测试用例的 patch">SWE-bench Verified</td>
+        <td class="bm-desc">真实 GitHub issue 修复任务，Verified 子集经人工验证质量，是 Agent 代码能力的主流标准</td>
         <td class="bm-score"><span class="score score-high">93.9%</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
         <td class="bm-date">2026-05</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2310.06770" target="_blank" rel="noopener">论文</a> · <a href="https://www.swebench.com/" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
-      <tr>
-        <td class="bm-name" title="生成可运行的科学计算代码，通过单元测试验证，包含子问题分解评估">SciCode</td>
-        <td class="bm-desc">科学计算代码生成，覆盖物理/数学/材料等领域，需要领域知识 + 编程能力，难度高</td>
-        <td class="bm-score"><span class="score score-low">58.9%</span></td>
-        <td class="bm-model">Gemini 3.1 Pro Preview</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://scicode-bench.github.io/" target="_blank" rel="noopener">论文</a> · <a href="https://hal.cs.princeton.edu/scicode" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <section class="category" id="cat-Agent-工具调用" data-category="Agent/工具调用">
+    <section class="category" id="cat-环境交互-Agent" data-category="环境交互 Agent">
       <div class="category-header">
-        <h2>Agent/工具调用</h2>
-        <p class="category-desc">Agent 任务完成、工具使用和多步规划能力评测</p>
+        <h2>环境交互 Agent</h2>
+        <p class="category-desc">在真实操作系统、网页或桌面环境中自主完成多步任务</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -492,6 +364,45 @@
         <td class="bm-links"><a href="https://arxiv.org/abs/2601.11868" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/harbor-framework/terminal-bench" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
       <tr>
+        <td class="bm-name" title="Agent 在浏览器中操作真实网站，通过程序化检查验证任务完成情况">WebArena</td>
+        <td class="bm-desc">CMU 出品，在电商/代码托管/论坛等真实网站完成多步任务的网页交互 Agent 评测</td>
+        <td class="bm-score"><span class="score score-mid">68.7%</span></td>
+        <td class="bm-model">Claude Mythos Preview</td>
+        <td class="bm-date">2026-05</td>
+        <td class="bm-links"><a href="https://arxiv.org/abs/2307.13854" target="_blank" rel="noopener">论文</a> · <a href="https://benchlm.ai/benchmarks/webArena" target="_blank" rel="noopener">Leaderboard</a></td>
+      </tr>
+      <tr>
+        <td class="bm-name" title="Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态">OSWorld</td>
+        <td class="bm-desc">Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测</td>
+        <td class="bm-score"><span class="score score-mid">72.7%</span></td>
+        <td class="bm-model">Claude Opus 4.6</td>
+        <td class="bm-date">2026-05</td>
+        <td class="bm-links"><a href="https://arxiv.org/abs/2404.07972" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/osworld" target="_blank" rel="noopener">Leaderboard</a></td>
+      </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="category" id="cat-工具调用-Agent" data-category="工具调用 Agent">
+      <div class="category-header">
+        <h2>工具调用 Agent</h2>
+        <p class="category-desc">评测 Agent 在复杂工具集和真实场景中的多步工具调用与规划能力</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Benchmark</th>
+              <th>简介</th>
+              <th>当前 SOTA</th>
+              <th>SOTA 模型</th>
+              <th>更新日期</th>
+              <th>链接</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+      <tr>
         <td class="bm-name" title="给定工具集和任务目标，评估 Agent 能否通过多步工具调用完成，成功率评分">Toolathlon</td>
         <td class="bm-desc">HKUST 出品（ICLR 2026），600+ 工具，真实软件环境中的长链工具调用任务，难度极高</td>
         <td class="bm-score"><span class="score score-low">38.6%</span></td>
@@ -500,31 +411,7 @@
         <td class="bm-links"><a href="https://arxiv.org/abs/2510.25726" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/hkust-nlp/Toolathlon" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
       <tr>
-        <td class="bm-name" title="Agent 在浏览器环境中操作真实网站，通过程序化检查或人工验证任务完成情况">WebArena</td>
-        <td class="bm-desc">CMU 出品，真实网页交互 Agent 评测，在电商/代码托管/论坛等真实网站完成任务</td>
-        <td class="bm-score"><span class="score score-mid">68.7%</span></td>
-        <td class="bm-model">Claude Mythos Preview</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2307.13854" target="_blank" rel="noopener">论文</a> · <a href="https://benchlm.ai/benchmarks/webArena" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态；含 GUI-only 和 SoM 两种设置">OSWorld</td>
-        <td class="bm-desc">Columbia 出品，真实桌面操作 Agent 评测，在完整虚拟机环境中完成文件管理/表格/创意软件等真实任务</td>
-        <td class="bm-score"><span class="score score-mid">72.7%</span></td>
-        <td class="bm-model">Claude Opus 4.6</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2404.07972" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/osworld" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="Agent 自由使用工具解决问题，按难度分 3 级；裸模型和带脚手架两种设置分数差异显著">GAIA</td>
-        <td class="bm-desc">Meta 出品，通用 AI 助手评测，450 道需要多步推理+网页浏览+工具调用的真实问题，答案无歧义</td>
-        <td class="bm-score"><span class="score score-low">52.3%</span></td>
-        <td class="bm-model">Claude Mythos Preview</td>
-        <td class="bm-date">2026-05</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2311.12983" target="_blank" rel="noopener">论文</a> · <a href="https://huggingface.co/spaces/gaia-benchmark/leaderboard" target="_blank" rel="noopener">Leaderboard</a></td>
-      </tr>
-      <tr>
-        <td class="bm-name" title="用户由 LLM 模拟，评估 Agent 在动态对话中的工具调用准确率和政策遵循率；pass^k 考察一致性">τ-bench</td>
+        <td class="bm-name" title="用户由 LLM 模拟，评估工具调用准确率和政策遵循率；pass^k 专门考察一致性">τ-bench</td>
         <td class="bm-desc">Sierra Research 出品，模拟真实客服场景（零售/航空/银行），Agent 需在多轮对话中遵循政策并调用 API 完成任务</td>
         <td class="bm-score"><span class="score score-mid">89.2%</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
@@ -535,10 +422,10 @@
         </table>
       </div>
     </section>
-    <section class="category" id="cat-指令遵循" data-category="指令遵循">
+    <section class="category" id="cat-通用-Agent" data-category="通用 Agent">
       <div class="category-header">
-        <h2>指令遵循</h2>
-        <p class="category-desc">复杂指令理解和精确遵循能力评测</p>
+        <h2>通用 Agent</h2>
+        <p class="category-desc">需要综合运用推理、工具调用、网页浏览等多种能力完成开放任务</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -555,43 +442,12 @@
           <tbody>
             
       <tr>
-        <td class="bm-name" title="生成满足多个可验证约束的回复，同时报告指令级准确率和提示级准确率">IFEval</td>
-        <td class="bm-desc">Google 出品，包含格式/长度/内容等可程序化验证的指令，去除主观评判</td>
-        <td class="bm-score"><span class="score score-high">92.6%</span></td>
-        <td class="bm-model">—</td>
-        <td class="bm-date">2026</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2311.07911" target="_blank" rel="noopener">论文</a></td>
-      </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section class="category" id="cat-中文对话" data-category="中文对话">
-      <div class="category-header">
-        <h2>中文对话</h2>
-        <p class="category-desc">中文语言理解、生成与对齐能力评测</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Benchmark</th>
-              <th>简介</th>
-              <th>当前 SOTA</th>
-              <th>SOTA 模型</th>
-              <th>更新日期</th>
-              <th>链接</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-      <tr>
-        <td class="bm-name" title="GPT-4 裁判打分（1-10 分），基于规则校准的多维度 LLM-as-Judge + Chain-of-Thought">AlignBench</td>
-        <td class="bm-desc">清华出品（ACL 2024），中文大模型对齐评测，覆盖推理/知识/写作等 8 个维度，专注中文场景</td>
-        <td class="bm-score"><span class="score score-unknown">—</span></td>
-        <td class="bm-model">—</td>
-        <td class="bm-date">—</td>
-        <td class="bm-links"><a href="https://arxiv.org/abs/2311.18743" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/alignbench" target="_blank" rel="noopener">Leaderboard</a></td>
+        <td class="bm-name" title="Agent 自由使用工具解决问题；裸模型和带脚手架两种设置分数差异显著（+30%），需注明">GAIA</td>
+        <td class="bm-desc">Meta 出品，450 道需要多步推理+网页浏览+工具调用的真实问题，答案无歧义，按难度分 3 级</td>
+        <td class="bm-score"><span class="score score-low">52.3%</span></td>
+        <td class="bm-model">Claude Mythos Preview</td>
+        <td class="bm-date">2026-05</td>
+        <td class="bm-links"><a href="https://arxiv.org/abs/2311.12983" target="_blank" rel="noopener">论文</a> · <a href="https://huggingface.co/spaces/gaia-benchmark/leaderboard" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
           </tbody>
         </table>
@@ -600,12 +456,12 @@
 </main>
 
 <footer>
-  <a href="https://github.com/your-username/agent-bench-tracker" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://github.com/HappyMayzhang/agentpulse" target="_blank" rel="noopener">GitHub</a>
   &nbsp;·&nbsp; 数据来自各 benchmark 官方网站 &nbsp;·&nbsp; 发现错误？欢迎提 PR
 </footer>
 
 <script>
-  const BENCHMARKS = [{"category": "综合知识", "name": "GPQA Diamond", "sota_score": "94.6%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2311.12022", "official_leaderboard": "https://artificialanalysis.ai/evaluations/gpqa-diamond"}, {"category": "综合知识", "name": "HLE", "sota_score": "44.7%", "sota_model": "Gemini 3.1 Pro Preview", "sota_date": "2026-05-25", "source_url": "https://arxiv.org/abs/2501.14249", "official_leaderboard": "https://agi.safe.ai/"}, {"category": "综合知识", "name": "MMLU-Pro", "sota_score": "89.8%", "sota_model": "Gemini 3 Pro Preview", "sota_date": "2026-04", "source_url": "https://arxiv.org/abs/2406.01574", "official_leaderboard": "https://benchlm.ai/benchmarks/mmluPro"}, {"category": "数学推理", "name": "AIME 2025", "sota_score": "100.0%", "sota_model": "Gemini 3 Pro / GPT-5.2 Pro", "sota_date": "2026-05", "source_url": "https://artofproblemsolving.com/wiki/index.php/2025_AIME", "official_leaderboard": "https://artificialanalysis.ai/evaluations/aime-2025"}, {"category": "数学推理", "name": "AIME 2026", "sota_score": "96.4%", "sota_model": "Kimi K2.6", "sota_date": "2026-05", "source_url": "https://artofproblemsolving.com/wiki/index.php/2026_AIME", "official_leaderboard": "https://llm-stats.com/benchmarks/aime-2026"}, {"category": "数学推理", "name": "AIME 2024", "sota_score": "", "sota_model": "", "sota_date": "", "source_url": "https://artofproblemsolving.com/wiki/index.php/2024_AIME", "official_leaderboard": "https://llm-stats.com/benchmarks/aime"}, {"category": "数学推理", "name": "GSM8K", "sota_score": "", "sota_model": "", "sota_date": "", "source_url": "https://arxiv.org/abs/2110.14168", "official_leaderboard": ""}, {"category": "代码能力", "name": "HumanEval", "sota_score": "97.6%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2107.03374", "official_leaderboard": "https://pricepertoken.com/leaderboards/benchmark/humaneval"}, {"category": "代码能力", "name": "MBPP", "sota_score": "94.9%", "sota_model": "", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2108.07732", "official_leaderboard": "https://codesota.com/llm/humaneval-mbpp"}, {"category": "代码能力", "name": "SWE-bench Verified", "sota_score": "93.9%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2310.06770", "official_leaderboard": "https://www.swebench.com/"}, {"category": "代码能力", "name": "SciCode", "sota_score": "58.9%", "sota_model": "Gemini 3.1 Pro Preview", "sota_date": "2026-05", "source_url": "https://scicode-bench.github.io/", "official_leaderboard": "https://hal.cs.princeton.edu/scicode"}, {"category": "Agent/工具调用", "name": "Terminal-Bench 2.0", "sota_score": "50.0%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2601.11868", "official_leaderboard": "https://github.com/harbor-framework/terminal-bench"}, {"category": "Agent/工具调用", "name": "Toolathlon", "sota_score": "38.6%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2510.25726", "official_leaderboard": "https://github.com/hkust-nlp/Toolathlon"}, {"category": "Agent/工具调用", "name": "WebArena", "sota_score": "68.7%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2307.13854", "official_leaderboard": "https://benchlm.ai/benchmarks/webArena"}, {"category": "Agent/工具调用", "name": "OSWorld", "sota_score": "72.7%", "sota_model": "Claude Opus 4.6", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2404.07972", "official_leaderboard": "https://llm-stats.com/benchmarks/osworld"}, {"category": "Agent/工具调用", "name": "GAIA", "sota_score": "52.3%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2311.12983", "official_leaderboard": "https://huggingface.co/spaces/gaia-benchmark/leaderboard"}, {"category": "Agent/工具调用", "name": "τ-bench", "sota_score": "89.2%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-04", "source_url": "https://arxiv.org/abs/2406.12045", "official_leaderboard": "https://benchlm.ai/benchmarks/tauBench"}, {"category": "指令遵循", "name": "IFEval", "sota_score": "92.6%", "sota_model": "", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2311.07911", "official_leaderboard": ""}, {"category": "中文对话", "name": "AlignBench", "sota_score": "", "sota_model": "", "sota_date": "", "source_url": "https://arxiv.org/abs/2311.18743", "official_leaderboard": "https://llm-stats.com/benchmarks/alignbench"}];
+  const BENCHMARKS = [{"category": "软件工程 Agent", "name": "SWE-bench Verified", "sota_score": "93.9%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2310.06770", "official_leaderboard": "https://www.swebench.com/"}, {"category": "环境交互 Agent", "name": "Terminal-Bench 2.0", "sota_score": "50.0%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2601.11868", "official_leaderboard": "https://github.com/harbor-framework/terminal-bench"}, {"category": "环境交互 Agent", "name": "WebArena", "sota_score": "68.7%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2307.13854", "official_leaderboard": "https://benchlm.ai/benchmarks/webArena"}, {"category": "环境交互 Agent", "name": "OSWorld", "sota_score": "72.7%", "sota_model": "Claude Opus 4.6", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2404.07972", "official_leaderboard": "https://llm-stats.com/benchmarks/osworld"}, {"category": "工具调用 Agent", "name": "Toolathlon", "sota_score": "38.6%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2510.25726", "official_leaderboard": "https://github.com/hkust-nlp/Toolathlon"}, {"category": "工具调用 Agent", "name": "τ-bench", "sota_score": "89.2%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-04", "source_url": "https://arxiv.org/abs/2406.12045", "official_leaderboard": "https://benchlm.ai/benchmarks/tauBench"}, {"category": "通用 Agent", "name": "GAIA", "sota_score": "52.3%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2311.12983", "official_leaderboard": "https://huggingface.co/spaces/gaia-benchmark/leaderboard"}];
 
   // ── Filter ──
   document.querySelectorAll(".filter-btn").forEach(btn => {

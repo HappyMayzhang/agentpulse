@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你对 Agent Bench Tracker 的贡献！
+感谢你对 AgentPulse 的贡献！
 
 ## 贡献规则
 

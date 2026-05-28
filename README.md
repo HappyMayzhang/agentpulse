@@ -1,8 +1,8 @@
-# Agent Bench Tracker
+# AgentPulse
 
-**Agent & Code Benchmark SOTA 实时追踪工具**
+**Agent Benchmark SOTA 实时追踪工具**
 
-追踪 Agent、Code、Math、Instruction-Following 等方向的最新 SOTA 分数、模型和历史变化。
+专注追踪软件工程 Agent、环境交互 Agent、工具调用 Agent 等方向的最新 SOTA 分数、模型和历史变化。
 
 > 所有数据均来自公开来源，详见各 benchmark 官方网站。
 
@@ -24,12 +24,10 @@
 
 | 维度 | Benchmark |
 |------|-----------|
-| 综合知识 | GPQA Diamond、HLE |
-| 数学推理 | AIME 2025、MATH-500 |
-| 代码能力 | SWE-bench Verified、SciCode |
-| Agent/工具调用 | Terminal-Bench 2.0、Toolathlon |
-| 指令遵循 | IFEval |
-| 中文对话 | AlignBench |
+| 软件工程 Agent | SWE-bench Verified |
+| 环境交互 Agent | Terminal-Bench 2.0、WebArena、OSWorld |
+| 工具调用 Agent | Toolathlon、τ-bench |
+| 通用 Agent | GAIA |
 
 ---
 
@@ -63,4 +61,4 @@
 
 ## 在线页面
 
-[agent-bench-tracker GitHub Pages](#)（即将上线）
+[AgentPulse GitHub Pages](https://happymayzhang.github.io/agentpulse/)（即将上线）

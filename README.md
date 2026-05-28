@@ -61,4 +61,4 @@
 
 ## 在线页面
 
-[AgentPulse GitHub Pages](https://happymayzhang.github.io/agentpulse/)（即将上线）
+[AgentPulse GitHub Pages](https://happymayzhang.github.io/agentpulse/)

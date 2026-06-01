@@ -1,23 +1,22 @@
 """
-check_updates.py — 半自动 SOTA 更新检查脚本
+check_updates.py — AgentPulse SOTA 更新检查脚本
 
-检查来源：
-  1. Papers with Code API（有映射关系的 benchmark）
-  2. 预设的 leaderboard 页面（关键数值抓取）
+数据来源：
+  llm-stats.com REST API（覆盖 5/7 benchmark）
+  WebArena / GAIA：llm-stats 未收录，标记为需人工检查
 
 用法：
   python scripts/check_updates.py              # 只检查，打印报告
   python scripts/check_updates.py --apply      # 检查 + 自动写入 YAML
-  python scripts/check_updates.py --ci         # CI 模式：有更新时写文件供 GitHub Actions 创建 PR
+  python scripts/check_updates.py --ci         # CI 模式：有更新时退出码 1，供 GitHub Actions 创建 PR
 
-退出码：
-  0 — 无更新
-  1 — 发现更新（CI 模式下）
+环境变量：
+  LLM_STATS_API_KEY   llm-stats.com API key（本地放 .env，CI 放 GitHub Secret）
 """
 
 import argparse
 import json
-import re
+import os
 import sys
 import time
 from pathlib import Path
@@ -25,136 +24,70 @@ from pathlib import Path
 import requests
 import yaml
 
-ROOT = Path(__file__).parent.parent
-YAML_PATH = ROOT / "data" / "benchmarks.yaml"
+# ── 加载 .env（本地开发用）──────────────────────────────────────────────────
+_env_path = Path(__file__).parent.parent / ".env"
+if _env_path.exists():
+    for line in _env_path.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip())
+
+ROOT         = Path(__file__).parent.parent
+YAML_PATH    = ROOT / "data" / "benchmarks.yaml"
 SUMMARY_PATH = ROOT / "data" / "_pending_updates.json"
 
-# ── Papers with Code API ──────────────────────────────────────────────────────
-# 映射：benchmark 名称 → PwC benchmark slug
-# 从 https://paperswithcode.com/sota/<task> 页面确认
-PWC_BENCHMARK_MAP = {
-    "HumanEval":         "humaneval",
-    "MBPP":              "mbpp",
+API_BASE = "https://api.llm-stats.com"
+
+# ── benchmark 名称 → llm-stats benchmark ID ──────────────────────────────────
+LLM_STATS_ID_MAP = {
     "SWE-bench Verified": "swe-bench-verified",
-    "GPQA Diamond":      "gpqa-diamond",
-    "MMLU-Pro":          "mmlu-pro",
-    "IFEval":            "ifeval",
-    "GSM8K":             "gsm8k",
-    "MATH-500":          "math-500",
+    "Terminal-Bench 2.0": "terminal-bench-2",
+    "OSWorld":            "osworld",
+    "Toolathlon":         "toolathlon",
+    "τ-bench":            "tau-bench",
 }
 
-PWC_API_BASE = "https://paperswithcode.com/api/v1"
-PWC_HEADERS  = {"User-Agent": "agentpulse/1.0 (github.com/HappyMayzhang/agentpulse)"}
+# llm-stats 未收录，需人工检查
+MANUAL_CHECK = {
+    "WebArena": "https://benchlm.ai/benchmarks/webArena",
+    "GAIA":     "https://huggingface.co/spaces/gaia-benchmark/leaderboard",
+}
 
 
-def pwc_get_sota(benchmark_slug: str) -> dict | None:
-    """查询 Papers with Code API，返回最新 SOTA 条目（分数最高的那条）"""
-    url = f"{PWC_API_BASE}/sota/?benchmark={benchmark_slug}&format=json"
+def get_api_key() -> str:
+    key = os.environ.get("LLM_STATS_API_KEY", "")
+    if not key:
+        print("错误：未找到 LLM_STATS_API_KEY，请在 .env 或环境变量中设置")
+        sys.exit(1)
+    return key
+
+
+def fetch_top_score(benchmark_id: str, api_key: str) -> dict | None:
+    """从 llm-stats API 拉取指定 benchmark 的最高分条目"""
+    headers = {"Authorization": f"Bearer {api_key}"}
     try:
-        resp = requests.get(url, headers=PWC_HEADERS, timeout=10)
-        resp.raise_for_status()
-        data = resp.json()
-        rows = data.get("results", [])
-        if not rows:
+        r = requests.get(
+            f"{API_BASE}/stats/v1/scores",
+            headers=headers,
+            params={"benchmark": benchmark_id, "limit": 1},
+            timeout=10,
+        )
+        r.raise_for_status()
+        scores = r.json().get("scores", [])
+        if not scores:
             return None
-        # PwC 按分数降序排列，取第一条
-        top = rows[0]
+        top = scores[0]
         return {
-            "sota_score": _fmt_score(top.get("best_metric")),
+            "sota_score": f"{top['score'] * 100:.1f}%",
             "sota_model": top.get("model_name", ""),
-            "sota_date":  top.get("paper_date", "")[:7] if top.get("paper_date") else "",
-            "source": f"Papers with Code / {benchmark_slug}",
+            "sota_date":  top.get("scored_at", "")[:7],
+            "source":     f"llm-stats.com / {benchmark_id}",
         }
     except Exception as e:
-        print(f"  [PwC] {benchmark_slug}: 请求失败 ({e})")
+        print(f"  [API 错误] {benchmark_id}: {e}")
         return None
 
-
-def _fmt_score(val) -> str:
-    """把 PwC 返回的数值格式化为 '94.6%' 形式"""
-    if val is None:
-        return ""
-    try:
-        f = float(val)
-        # PwC 有时返回小数（0.946），有时返回百分数（94.6）
-        if f <= 1.0:
-            f *= 100
-        return f"{f:.1f}%"
-    except (ValueError, TypeError):
-        return str(val)
-
-
-# ── Leaderboard scrapers ──────────────────────────────────────────────────────
-# 每个 scraper 返回 {"sota_score": ..., "sota_model": ..., "sota_date": ...}
-# 或 None（抓取失败）
-
-def _extract_first_number(pattern: str, text: str) -> str | None:
-    m = re.search(pattern, text)
-    return m.group(1) if m else None
-
-
-def _extract_scores_in_range(text: str, lo: float, hi: float) -> list[float]:
-    """从文本中提取在 [lo, hi] 范围内的所有百分比数值（过滤噪声）"""
-    candidates = re.findall(r'\b(\d{1,3}\.\d{1,2})\b', text)
-    return [float(s) for s in candidates if lo <= float(s) <= hi]
-
-
-def scrape_swebench() -> dict | None:
-    """
-    从 swebench.com 抓取 Verified 榜首。
-    SWE-bench Verified 历史区间大致 30-100%，取该范围内最大值。
-    注意：页面为 JS 渲染，静态抓取可能拿不到完整数据，结果需人工确认。
-    """
-    try:
-        resp = requests.get("https://www.swebench.com/", timeout=15,
-                            headers={"User-Agent": PWC_HEADERS["User-Agent"]})
-        resp.raise_for_status()
-        scores = _extract_scores_in_range(resp.text, lo=30.0, hi=100.0)
-        if scores:
-            best = max(scores)
-            return {
-                "sota_score": f"{best:.1f}%",
-                "sota_model": "",
-                "sota_date":  "",
-                "source": "swebench.com (JS渲染，需人工确认)",
-            }
-    except Exception as e:
-        print(f"  [scraper] swebench.com: {e}")
-    return None
-
-
-def scrape_hle() -> dict | None:
-    """
-    从 Scale Labs HLE leaderboard 抓取榜首。
-    HLE 历史区间大致 5-60%，取该范围内最大值。
-    """
-    try:
-        resp = requests.get("https://labs.scale.com/leaderboard/humanitys_last_exam",
-                            timeout=15,
-                            headers={"User-Agent": PWC_HEADERS["User-Agent"]})
-        resp.raise_for_status()
-        scores = _extract_scores_in_range(resp.text, lo=5.0, hi=60.0)
-        if scores:
-            best = max(scores)
-            return {
-                "sota_score": f"{best:.1f}%",
-                "sota_model": "",
-                "sota_date":  "",
-                "source": "labs.scale.com/leaderboard/humanitys_last_exam (需人工确认)",
-            }
-    except Exception as e:
-        print(f"  [scraper] HLE leaderboard: {e}")
-    return None
-
-
-# 注册 leaderboard scrapers
-LEADERBOARD_SCRAPERS = {
-    "SWE-bench Verified": scrape_swebench,
-    "HLE":                scrape_hle,
-}
-
-
-# ── Score comparison ──────────────────────────────────────────────────────────
 
 def score_to_float(s: str) -> float | None:
     if not s:
@@ -171,62 +104,50 @@ def is_higher(new_score: str, old_score: str) -> bool:
     if n is None:
         return False
     if o is None:
-        return True   # 之前没有数据，视为更新
+        return True
     return n > o
 
 
-# ── Core logic ────────────────────────────────────────────────────────────────
-
-def check_all(data: dict) -> list[dict]:
-    """
-    检查所有 benchmark，返回有更新的条目列表
-    每条格式：{category, name, old_score, new_score, new_model, new_date, source}
-    """
-    updates = []
+def check_all(data: dict, api_key: str) -> tuple[list[dict], list[str]]:
+    updates       = []
+    manual_needed = []
 
     for cat in data.get("categories", []):
         for bm in cat.get("benchmarks", []):
-            name = bm["name"]
+            name      = bm["name"]
             old_score = bm.get("sota_score", "") or ""
-            print(f"  检查 {name} (当前 SOTA: {old_score or '—'})")
 
-            fetched = None
-
-            # 优先用 leaderboard scraper
-            if name in LEADERBOARD_SCRAPERS:
-                fetched = LEADERBOARD_SCRAPERS[name]()
-                time.sleep(0.5)
-
-            # 再尝试 Papers with Code
-            if fetched is None and name in PWC_BENCHMARK_MAP:
-                fetched = pwc_get_sota(PWC_BENCHMARK_MAP[name])
-                time.sleep(0.3)
-
-            if fetched is None:
+            if name in MANUAL_CHECK:
+                manual_needed.append(name)
                 continue
 
-            new_score = fetched.get("sota_score", "")
-            if is_higher(new_score, old_score):
+            bm_id = LLM_STATS_ID_MAP.get(name)
+            if bm_id is None:
+                print(f"  [跳过] {name}：未配置数据源")
+                continue
+
+            print(f"  检查 {name} (当前 SOTA: {old_score or '—'})")
+            fetched = fetch_top_score(bm_id, api_key)
+            time.sleep(0.3)
+
+            if fetched and is_higher(fetched["sota_score"], old_score):
                 updates.append({
                     "category":  cat["name"],
                     "name":      name,
                     "old_score": old_score or "—",
-                    "new_score": new_score,
-                    "new_model": fetched.get("sota_model", ""),
-                    "new_date":  fetched.get("sota_date", ""),
-                    "source":    fetched.get("source", ""),
+                    "new_score": fetched["sota_score"],
+                    "new_model": fetched["sota_model"],
+                    "new_date":  fetched["sota_date"],
+                    "source":    fetched["source"],
                 })
 
-    return updates
+    return updates, manual_needed
 
 
 def apply_updates(data: dict, updates: list[dict]) -> dict:
-    """把 updates 写回 data dict"""
-    index: dict[str, dict] = {}
-    for cat in data.get("categories", []):
-        for bm in cat.get("benchmarks", []):
-            index[bm["name"]] = bm
-
+    index = {bm["name"]: bm
+             for cat in data.get("categories", [])
+             for bm in cat.get("benchmarks", [])}
     for u in updates:
         bm = index.get(u["name"])
         if bm is None:
@@ -236,56 +157,58 @@ def apply_updates(data: dict, updates: list[dict]) -> dict:
             bm["sota_model"] = u["new_model"]
         if u["new_date"]:
             bm["sota_date"] = u["new_date"]
-
     return data
 
 
-def print_report(updates: list[dict]):
-    if not updates:
-        print("\n未发现更新。")
-        return
-    print(f"\n发现 {len(updates)} 处更新：")
-    print("-" * 70)
-    for u in updates:
-        model_str = f" ({u['new_model']})" if u['new_model'] else ""
-        print(f"  [{u['category']}] {u['name']}")
-        print(f"    {u['old_score']}  →  {u['new_score']}{model_str}")
-        print(f"    来源: {u['source']}")
-    print("-" * 70)
+def print_report(updates: list[dict], manual_needed: list[str]):
+    if updates:
+        print(f"\n发现 {len(updates)} 处更新：")
+        print("-" * 65)
+        for u in updates:
+            model_str = f" ({u['new_model']})" if u["new_model"] else ""
+            print(f"  [{u['category']}] {u['name']}")
+            print(f"    {u['old_score']}  →  {u['new_score']}{model_str}")
+            print(f"    来源: {u['source']}")
+        print("-" * 65)
+    else:
+        print("\n自动检查：未发现更新。")
 
+    if manual_needed:
+        print(f"\n以下 {len(manual_needed)} 个 benchmark 需人工检查（llm-stats 未收录）：")
+        for name in manual_needed:
+            print(f"  {name:20} → {MANUAL_CHECK[name]}")
 
-# ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true", help="自动写入 YAML")
-    parser.add_argument("--ci",    action="store_true", help="CI 模式，写 _pending_updates.json")
+    parser.add_argument("--ci",    action="store_true", help="CI 模式")
     args = parser.parse_args()
+
+    api_key = get_api_key()
 
     print(f"加载数据：{YAML_PATH}")
     with open(YAML_PATH, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     print("\n开始检查更新...\n")
-    updates = check_all(data)
-    print_report(updates)
+    updates, manual_needed = check_all(data, api_key)
+    print_report(updates, manual_needed)
 
     if not updates:
         sys.exit(0)
 
     if args.apply or args.ci:
-        # 写回 YAML
         apply_updates(data, updates)
         with open(YAML_PATH, "w", encoding="utf-8") as f:
             yaml.dump(data, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         print(f"\nYAML 已更新：{YAML_PATH}")
 
     if args.ci:
-        # 写 JSON 摘要供 GitHub Actions 创建 PR 描述
         with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
             json.dump(updates, f, ensure_ascii=False, indent=2)
         print(f"摘要已写入：{SUMMARY_PATH}")
-        sys.exit(1)   # 告知 GitHub Actions 有变更，触发 PR 创建
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -25,6 +25,8 @@ jobs:
 
       - name: Run update check
         id: check
+        env:
+          LLM_STATS_API_KEY: ${{ secrets.LLM_STATS_API_KEY }}
         run: |
           python scripts/check_updates.py --ci
           echo "has_updates=$?" >> $GITHUB_OUTPUT
@@ -48,7 +50,7 @@ jobs:
             **请人工审核后合并。**
 
             ---
-            数据来源：Papers with Code API / 官方 leaderboard
+            数据来源：llm-stats.com API
             运行时间：${{ github.event.repository.updated_at }}
 
             > 合并前请验证：

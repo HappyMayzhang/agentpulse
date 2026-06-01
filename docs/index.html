@@ -270,7 +270,7 @@
   <div class="header-inner">
     <h1>Agent<span>Pulse</span></h1>
     <div class="header-meta">
-      追踪 <strong>7</strong> 个 Benchmark &nbsp;·&nbsp; 最后更新 <strong>2026-05-28</strong>
+      追踪 <strong>7</strong> 个 Benchmark &nbsp;·&nbsp; 最后更新 <strong>2026-06-01</strong>
     </div>
   </div>
 </header>
@@ -358,9 +358,9 @@
       <tr>
         <td class="bm-name" title="Agent 在容器化 Linux 环境中通过 shell 完成任务，程序化状态验证">Terminal-Bench 2.0</td>
         <td class="bm-desc">在真实 Linux 环境中完成命令行任务，89 个经人工验证的高难度任务，Docker 沙箱执行</td>
-        <td class="bm-score"><span class="score score-low">50.0%</span></td>
-        <td class="bm-model">Claude Sonnet 4.5</td>
-        <td class="bm-date">2026</td>
+        <td class="bm-score"><span class="score score-mid">82.7%</span></td>
+        <td class="bm-model">GPT-5.5</td>
+        <td class="bm-date">2026-06</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2601.11868" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/harbor-framework/terminal-bench" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
       <tr>
@@ -405,9 +405,9 @@
       <tr>
         <td class="bm-name" title="给定工具集和任务目标，评估 Agent 能否通过多步工具调用完成，成功率评分">Toolathlon</td>
         <td class="bm-desc">HKUST 出品（ICLR 2026），600+ 工具，真实软件环境中的长链工具调用任务，难度极高</td>
-        <td class="bm-score"><span class="score score-low">38.6%</span></td>
-        <td class="bm-model">Claude Sonnet 4.5</td>
-        <td class="bm-date">2026</td>
+        <td class="bm-score"><span class="score score-low">59.9%</span></td>
+        <td class="bm-model">Claude Opus 4.8</td>
+        <td class="bm-date">2026-06</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2510.25726" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/hkust-nlp/Toolathlon" target="_blank" rel="noopener">Leaderboard</a></td>
       </tr>
       <tr>
@@ -461,7 +461,7 @@
 </footer>
 
 <script>
-  const BENCHMARKS = [{"category": "软件工程 Agent", "name": "SWE-bench Verified", "sota_score": "93.9%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2310.06770", "official_leaderboard": "https://www.swebench.com/"}, {"category": "环境交互 Agent", "name": "Terminal-Bench 2.0", "sota_score": "50.0%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2601.11868", "official_leaderboard": "https://github.com/harbor-framework/terminal-bench"}, {"category": "环境交互 Agent", "name": "WebArena", "sota_score": "68.7%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2307.13854", "official_leaderboard": "https://benchlm.ai/benchmarks/webArena"}, {"category": "环境交互 Agent", "name": "OSWorld", "sota_score": "72.7%", "sota_model": "Claude Opus 4.6", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2404.07972", "official_leaderboard": "https://llm-stats.com/benchmarks/osworld"}, {"category": "工具调用 Agent", "name": "Toolathlon", "sota_score": "38.6%", "sota_model": "Claude Sonnet 4.5", "sota_date": "2026", "source_url": "https://arxiv.org/abs/2510.25726", "official_leaderboard": "https://github.com/hkust-nlp/Toolathlon"}, {"category": "工具调用 Agent", "name": "τ-bench", "sota_score": "89.2%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-04", "source_url": "https://arxiv.org/abs/2406.12045", "official_leaderboard": "https://benchlm.ai/benchmarks/tauBench"}, {"category": "通用 Agent", "name": "GAIA", "sota_score": "52.3%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2311.12983", "official_leaderboard": "https://huggingface.co/spaces/gaia-benchmark/leaderboard"}];
+  const BENCHMARKS = [{"category": "软件工程 Agent", "name": "SWE-bench Verified", "sota_score": "93.9%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2310.06770", "official_leaderboard": "https://www.swebench.com/"}, {"category": "环境交互 Agent", "name": "Terminal-Bench 2.0", "sota_score": "82.7%", "sota_model": "GPT-5.5", "sota_date": "2026-06", "source_url": "https://arxiv.org/abs/2601.11868", "official_leaderboard": "https://github.com/harbor-framework/terminal-bench"}, {"category": "环境交互 Agent", "name": "WebArena", "sota_score": "68.7%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2307.13854", "official_leaderboard": "https://benchlm.ai/benchmarks/webArena"}, {"category": "环境交互 Agent", "name": "OSWorld", "sota_score": "72.7%", "sota_model": "Claude Opus 4.6", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2404.07972", "official_leaderboard": "https://llm-stats.com/benchmarks/osworld"}, {"category": "工具调用 Agent", "name": "Toolathlon", "sota_score": "59.9%", "sota_model": "Claude Opus 4.8", "sota_date": "2026-06", "source_url": "https://arxiv.org/abs/2510.25726", "official_leaderboard": "https://github.com/hkust-nlp/Toolathlon"}, {"category": "工具调用 Agent", "name": "τ-bench", "sota_score": "89.2%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-04", "source_url": "https://arxiv.org/abs/2406.12045", "official_leaderboard": "https://benchlm.ai/benchmarks/tauBench"}, {"category": "通用 Agent", "name": "GAIA", "sota_score": "52.3%", "sota_model": "Claude Mythos Preview", "sota_date": "2026-05", "source_url": "https://arxiv.org/abs/2311.12983", "official_leaderboard": "https://huggingface.co/spaces/gaia-benchmark/leaderboard"}];
 
   // ── Filter ──
   document.querySelectorAll(".filter-btn").forEach(btn => {

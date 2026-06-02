@@ -58,19 +58,17 @@ llm-stats API 返回 `is_self_reported` 和 `verified` 字段，目前丢弃了�
 
 ## P2 — 页面增强
 
-### [ ] SOTA 趋势图
-- 读取 `data/history/` 数据，每个 benchmark 显示折线图
-- 可用 Chart.js（纯前端，无需后端）
+### [x] SOTA 趋势图
+- 读取 `data/history/` 数据，build_history_json() 打包到页面
+- Chart.js CDN，点击 📈 按钮弹出折线图 modal
 
-### [ ] 中文模型专栏
-竞品几乎都缺这个视角，是差异化机会。
+### [x] 中文模型专栏
+- 页面顶部可展开专栏，JS 关键词过滤（DeepSeek/Qwen/Kimi/GLM/Yi/InternLM）
+- 显示中文模型领先的 benchmark 数量和详情表格
 
-- 在页面加"中文模型"筛选按钮
-- 显示 DeepSeek / Qwen / Kimi / GLM 系列在各 benchmark 上的横向对比
-- 数据从 llm-stats API 按 `organization` 字段过滤
-
-### [ ] 移动端适配
-当前页面在手机上表格会横向溢出，需要响应式调整。
+### [x] 移动端适配
+- `@media (max-width: 768px)` 响应式 CSS
+- 隐藏描述/日期列，搜索框全宽，导航栏 padding 缩减
 
 ---
 

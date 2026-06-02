@@ -99,6 +99,7 @@ def render_benchmark_row(bm):
     slug = name_to_slug(name)
     if len(history) > 1:
         links.append(f'<a class="history-toggle" data-target="hist-{slug}" href="#">历史({len(history)})</a>')
+        links.append(f'<a class="chart-btn" data-slug="{slug}" data-name="{name}" href="#">📈</a>')
 
     links_html = " · ".join(links) if links else "—"
     model_html = model if model else "—"
@@ -195,12 +196,40 @@ def build_all_benchmarks_json(categories):
     return json.dumps(all_bms, ensure_ascii=False)
 
 
+def build_history_json(categories):
+    """构建 {slug: {name, points:[{date,score,model}]}} 供 Chart.js 使用"""
+    result = {}
+    for cat in categories:
+        for bm in cat.get("benchmarks", []):
+            name = bm.get("name", "")
+            slug = name_to_slug(name)
+            history = load_history(name)
+            if len(history) < 2:
+                continue
+            points = []
+            for entry in history:
+                score_str = entry.get("score", "")
+                try:
+                    score = float(str(score_str).rstrip("%"))
+                except (ValueError, AttributeError):
+                    continue
+                points.append({
+                    "date":  entry.get("date", "") or "",
+                    "score": score,
+                    "model": entry.get("model", "") or "",
+                })
+            if len(points) >= 2:
+                result[slug] = {"name": name, "points": points}
+    return json.dumps(result, ensure_ascii=False)
+
+
 def generate_html(data):
     categories = data.get("categories", [])
     today = date.today().strftime("%Y-%m-%d")
     filter_buttons = build_filter_buttons(categories)
     sections = "".join(render_category_section(cat) for cat in categories)
     bm_json = build_all_benchmarks_json(categories)
+    history_json = build_history_json(categories)
     total = sum(len(c.get("benchmarks", [])) for c in categories)
 
     return f"""<!DOCTYPE html>
@@ -209,6 +238,7 @@ def generate_html(data):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgentPulse</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
@@ -500,6 +530,103 @@ def generate_html(data):
       border-top: 1px solid var(--border);
     }}
     footer a {{ color: var(--accent-light); text-decoration: none; }}
+
+    /* ── SOTA 趋势图 Modal ── */
+    .modal-overlay {{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }}
+    .modal-overlay.open {{ display: flex; }}
+    .modal-box {{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      width: min(620px, 92vw);
+      position: relative;
+    }}
+    .modal-close {{
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+    }}
+    .modal-close:hover {{ color: var(--text); }}
+    .modal-title {{
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }}
+    a.chart-btn {{
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+    }}
+    a.chart-btn:hover {{ color: var(--accent-light); }}
+
+    /* ── 中文模型专栏 ── */
+    .cn-section {{
+      max-width: 1200px;
+      margin: 16px auto 0;
+      padding: 0 40px;
+    }}
+    .cn-toggle {{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      width: 100%;
+      text-align: left;
+      transition: border-color 0.15s;
+    }}
+    .cn-toggle:hover {{ border-color: var(--accent); }}
+    .cn-toggle .arrow {{ margin-left: auto; transition: transform 0.2s; font-style: normal; }}
+    .cn-toggle.open .arrow {{ transform: rotate(90deg); }}
+    .cn-body {{ display: none; padding: 14px 0 0; }}
+    .cn-body.open {{ display: block; }}
+    .cn-body > p {{ color: var(--muted); font-size: 13px; margin-bottom: 12px; }}
+    .cn-stats {{ display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }}
+    .cn-stat {{
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius);
+      padding: 6px 14px;
+      font-size: 13px;
+    }}
+    .cn-stat strong {{ color: var(--accent-light); }}
+
+    /* ── 移动端适配 ── */
+    @media (max-width: 768px) {{
+      header {{ padding: 16px; }}
+      .tagline, .model-search, .cn-section {{ padding-left: 16px; padding-right: 16px; }}
+      .filter-bar {{ padding: 10px 16px; gap: 6px; }}
+      main {{ padding: 0 16px 40px; }}
+      .header-meta {{ display: none; }}
+      .filter-btn {{ font-size: 12px; padding: 3px 10px; }}
+      .bm-desc, .bm-date {{ display: none; }}
+      .search-row {{ flex-wrap: wrap; }}
+      .search-row input {{ width: 100%; }}
+      .search-row button {{ width: 100%; }}
+      .cn-stats {{ gap: 8px; }}
+    }}
   </style>
 </head>
 <body>
@@ -523,6 +650,29 @@ def generate_html(data):
   {filter_buttons}
 </div>
 
+<div class="cn-section">
+  <button class="cn-toggle" onclick="toggleCnSection(this)">
+    🇨🇳 中文模型专栏 <em class="arrow">▶</em>
+  </button>
+  <div class="cn-body" id="cn-body">
+    <p>以下统计基于当前 SOTA 数据，筛选 DeepSeek / Qwen / Kimi / GLM / Yi / InternLM 等中文模型。</p>
+    <div class="cn-stats" id="cn-stats"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Benchmark</th>
+            <th>中文模型 SOTA</th>
+            <th>分数</th>
+            <th>日期</th>
+          </tr>
+        </thead>
+        <tbody id="cn-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <div class="model-search">
   <h3>模型横向对比</h3>
   <div class="search-row">
@@ -541,6 +691,14 @@ def generate_html(data):
   {sections}
 </main>
 
+<div class="modal-overlay" id="chart-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeChartModal()">×</button>
+    <div class="modal-title" id="chart-title">SOTA 历史趋势</div>
+    <canvas id="chart-canvas"></canvas>
+  </div>
+</div>
+
 <footer>
   <a href="https://github.com/HappyMayzhang/agentpulse" target="_blank" rel="noopener">GitHub</a>
   &nbsp;·&nbsp; 数据来自各 benchmark 官方网站 &nbsp;·&nbsp; 发现错误？欢迎提 PR
@@ -548,6 +706,7 @@ def generate_html(data):
 
 <script>
   const BENCHMARKS = {bm_json};
+  const HISTORY    = {history_json};
 
   // ── Filter ──
   document.querySelectorAll(".filter-btn").forEach(btn => {{
@@ -605,6 +764,110 @@ def generate_html(data):
   document.getElementById("model-input").addEventListener("keydown", e => {{
     if (e.key === "Enter") searchModel();
   }});
+
+  // ── SOTA 趋势图 ──
+  let _chart = null;
+
+  function openChartModal(slug, name) {{
+    const data = HISTORY[slug];
+    if (!data) return;
+    document.getElementById("chart-title").textContent = name + "  SOTA 历史趋势";
+    document.getElementById("chart-modal").classList.add("open");
+    if (_chart) {{ _chart.destroy(); _chart = null; }}
+    const pts = data.points;
+    _chart = new Chart(document.getElementById("chart-canvas"), {{
+      type: "line",
+      data: {{
+        labels: pts.map(p => p.date),
+        datasets: [{{
+          label: "SOTA (%)",
+          data: pts.map(p => p.score),
+          borderColor: "#6366f1",
+          backgroundColor: "rgba(99,102,241,0.12)",
+          tension: 0.35,
+          fill: true,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+        }}]
+      }},
+      options: {{
+        responsive: true,
+        plugins: {{
+          legend: {{ display: false }},
+          tooltip: {{
+            callbacks: {{
+              label: ctx => {{
+                const p = pts[ctx.dataIndex];
+                return p.score + "% — " + (p.model || "");
+              }}
+            }}
+          }}
+        }},
+        scales: {{
+          y: {{
+            beginAtZero: false,
+            ticks: {{ color: "#8892a4", callback: v => v + "%" }},
+            grid: {{ color: "rgba(255,255,255,0.05)" }}
+          }},
+          x: {{
+            ticks: {{ color: "#8892a4" }},
+            grid: {{ color: "rgba(255,255,255,0.05)" }}
+          }}
+        }}
+      }}
+    }});
+  }}
+
+  function closeChartModal() {{
+    document.getElementById("chart-modal").classList.remove("open");
+    if (_chart) {{ _chart.destroy(); _chart = null; }}
+  }}
+
+  document.getElementById("chart-modal").addEventListener("click", e => {{
+    if (e.target.id === "chart-modal") closeChartModal();
+  }});
+
+  document.addEventListener("click", e => {{
+    const btn = e.target.closest(".chart-btn");
+    if (!btn) return;
+    e.preventDefault();
+    openChartModal(btn.dataset.slug, btn.dataset.name);
+  }});
+
+  // ── 中文模型专栏 ──
+  const CN_KW = ["deepseek", "qwen", "kimi", "glm-", "glm4", "yi-", "baichuan", "minimax", "ernie", "zhipu", "internlm"];
+
+  function isChinese(m) {{
+    const s = (m || "").toLowerCase();
+    return CN_KW.some(k => s.includes(k));
+  }}
+
+  function toggleCnSection(btn) {{
+    btn.classList.toggle("open");
+    const body = document.getElementById("cn-body");
+    body.classList.toggle("open");
+    if (body.classList.contains("open") && !body.dataset.loaded) {{
+      body.dataset.loaded = "1";
+      const cnBms = BENCHMARKS.filter(b => isChinese(b.sota_model));
+      document.getElementById("cn-stats").innerHTML =
+        `<div class="cn-stat"><strong>${{cnBms.length}}</strong> / ${{BENCHMARKS.length}} 个 benchmark 由中文模型领先</div>`;
+      const tbody = document.getElementById("cn-tbody");
+      if (!cnBms.length) {{
+        tbody.innerHTML = '<tr><td colspan="4" style="color:var(--muted);text-align:center">暂无中文模型领先</td></tr>';
+      }} else {{
+        tbody.innerHTML = cnBms.map(b => {{
+          const v = parseFloat(b.sota_score);
+          const cls = isNaN(v) ? "score-unknown" : v >= 90 ? "score-high" : v >= 60 ? "score-mid" : "score-low";
+          return `<tr>
+            <td style="font-weight:600">${{b.name}}</td>
+            <td>${{b.sota_model}}</td>
+            <td><span class="score ${{cls}}">${{b.sota_score || "—"}}</span></td>
+            <td style="color:var(--muted)">${{b.sota_date || "—"}}</td>
+          </tr>`;
+        }}).join("");
+      }}
+    }}
+  }}
 
   // ── History toggle ──
   document.addEventListener("click", e => {{

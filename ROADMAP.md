@@ -1,12 +1,12 @@
 # AgentPulse Roadmap
 
-当前状态：MVP 已上线，7 个 benchmark，5 个自动追踪，2 个手动。
+当前状态：MVP 已上线，7 个 benchmark，5 个自动追踪，2 个手动，历史记录已启动。
 
 ---
 
 ## P0 — 核心差异点补全（尽快做）
 
-### [ ] 历史记录功能
+### [x] 历史记录功能
 项目定位的核心差异是"什么时候超过的"，但 `data/history/` 目前是空的。
 
 - `check_updates.py --apply` 写入新 SOTA 时，同时把旧记录追加到 `data/history/<benchmark-id>.yaml`

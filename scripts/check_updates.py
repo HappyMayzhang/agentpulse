@@ -17,8 +17,10 @@ check_updates.py — AgentPulse SOTA 更新检查脚本
 import argparse
 import json
 import os
+import re
 import sys
 import time
+from datetime import date as _date
 from pathlib import Path
 
 import requests
@@ -36,6 +38,36 @@ if _env_path.exists():
 ROOT         = Path(__file__).parent.parent
 YAML_PATH    = ROOT / "data" / "benchmarks.yaml"
 SUMMARY_PATH = ROOT / "data" / "_pending_updates.json"
+HISTORY_DIR  = ROOT / "data" / "history"
+
+
+def name_to_slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def append_history(name: str, score: str, model: str, bm_date: str) -> None:
+    """把旧 SOTA 追加到历史记录文件（在覆盖更新之前调用）"""
+    if not score:
+        return
+    slug = name_to_slug(name)
+    path = HISTORY_DIR / f"{slug}.yaml"
+    entry = {
+        "score":       score,
+        "model":       model or "",
+        "date":        bm_date or "",
+        "recorded_at": _date.today().isoformat(),
+    }
+    history = []
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            history = yaml.safe_load(f) or []
+    # 避免重复追加相同记录
+    if history and history[-1].get("score") == score and history[-1].get("model") == model:
+        return
+    history.append(entry)
+    HISTORY_DIR.mkdir(exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.dump(history, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
 
 API_BASE = "https://api.llm-stats.com"
 
@@ -152,6 +184,13 @@ def apply_updates(data: dict, updates: list[dict]) -> dict:
         bm = index.get(u["name"])
         if bm is None:
             continue
+        # 先把旧 SOTA 存入历史记录
+        append_history(
+            u["name"],
+            bm.get("sota_score", "") or "",
+            bm.get("sota_model", "") or "",
+            bm.get("sota_date", "") or "",
+        )
         bm["sota_score"] = u["new_score"]
         if u["new_model"]:
             bm["sota_model"] = u["new_model"]
@@ -181,15 +220,30 @@ def print_report(updates: list[dict], manual_needed: list[str]):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--apply", action="store_true", help="自动写入 YAML")
-    parser.add_argument("--ci",    action="store_true", help="CI 模式")
+    parser.add_argument("--apply",        action="store_true", help="自动写入 YAML")
+    parser.add_argument("--ci",           action="store_true", help="CI 模式")
+    parser.add_argument("--init-history", action="store_true", help="从当前 YAML 初始化历史记录文件")
     args = parser.parse_args()
 
-    api_key = get_api_key()
+    api_key = get_api_key() if not args.init_history else ""
 
     print(f"加载数据：{YAML_PATH}")
     with open(YAML_PATH, encoding="utf-8") as f:
         data = yaml.safe_load(f)
+
+    if args.init_history:
+        count = 0
+        for cat in data.get("categories", []):
+            for bm in cat.get("benchmarks", []):
+                append_history(
+                    bm["name"],
+                    bm.get("sota_score", "") or "",
+                    bm.get("sota_model", "") or "",
+                    bm.get("sota_date", "") or "",
+                )
+                count += 1
+        print(f"历史记录初始化完成：{count} 个 benchmark → {HISTORY_DIR}")
+        sys.exit(0)
 
     print("\n开始检查更新...\n")
     updates, manual_needed = check_all(data, api_key)

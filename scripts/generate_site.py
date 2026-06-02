@@ -4,18 +4,32 @@ generate_site.py — 从 benchmarks.yaml 生成 docs/index.html 静态页面
 """
 
 import json
+import re
 import yaml
 from pathlib import Path
 from datetime import date
 
-ROOT = Path(__file__).parent.parent
-YAML_PATH = ROOT / "data" / "benchmarks.yaml"
-OUTPUT_PATH = ROOT / "docs" / "index.html"
+ROOT         = Path(__file__).parent.parent
+YAML_PATH    = ROOT / "data" / "benchmarks.yaml"
+OUTPUT_PATH  = ROOT / "docs" / "index.html"
+HISTORY_DIR  = ROOT / "data" / "history"
 
 
 def load_data():
     with open(YAML_PATH, encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def name_to_slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def load_history(name: str) -> list[dict]:
+    path = HISTORY_DIR / f"{name_to_slug(name)}.yaml"
+    if not path.exists():
+        return []
+    with open(path, encoding="utf-8") as f:
+        return yaml.safe_load(f) or []
 
 
 def score_to_float(score_str):
@@ -37,6 +51,28 @@ def score_color(score_str):
     return "score-low"
 
 
+def render_history_rows(history: list[dict]) -> str:
+    """渲染历史记录子行（历史从旧到新，最新一条是当前 SOTA）"""
+    if not history:
+        return ""
+    rows = ""
+    for i, entry in enumerate(history):
+        is_current = (i == len(history) - 1)
+        score = entry.get("score", "—")
+        model = entry.get("model", "—") or "—"
+        bm_date = entry.get("date", "—") or "—"
+        recorded = entry.get("recorded_at", "") or ""
+        label = '<span style="color:var(--green);font-size:11px">● 当前</span>' if is_current else ""
+        rows += f"""
+          <tr>
+            <td style="color:var(--muted);font-size:12px;padding-left:8px">{recorded}</td>
+            <td><span class="score {score_color(score)}" style="font-size:12px">{score}</span> {label}</td>
+            <td style="font-size:12px">{model}</td>
+            <td style="color:var(--muted);font-size:12px">{bm_date}</td>
+          </tr>"""
+    return rows
+
+
 def render_benchmark_row(bm):
     name = bm.get("name", "")
     desc = bm.get("description", "")
@@ -47,6 +83,8 @@ def render_benchmark_row(bm):
     source = bm.get("source_url", "") or ""
     leaderboard = bm.get("official_leaderboard", "") or ""
 
+    history = load_history(name)
+
     score_cls = score_color(score)
     score_html = f'<span class="score {score_cls}">{score if score else "—"}</span>'
 
@@ -55,12 +93,35 @@ def render_benchmark_row(bm):
         links.append(f'<a href="{source}" target="_blank" rel="noopener">论文</a>')
     if leaderboard:
         links.append(f'<a href="{leaderboard}" target="_blank" rel="noopener">Leaderboard</a>')
-    links_html = " · ".join(links) if links else "—"
 
+    slug = name_to_slug(name)
+    if len(history) > 1:
+        links.append(f'<a class="history-toggle" data-target="hist-{slug}" href="#">历史({len(history)})</a>')
+
+    links_html = " · ".join(links) if links else "—"
     model_html = model if model else "—"
     date_html = bm_date if bm_date else "—"
-
     tooltip = f'title="{methodology}"' if methodology else ""
+
+    history_row = ""
+    if len(history) > 1:
+        hist_rows = render_history_rows(history)
+        history_row = f"""
+      <tr id="hist-{slug}" class="history-row" style="display:none">
+        <td colspan="6" style="padding:0 14px 10px 28px">
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr>
+                <th style="font-size:11px;color:var(--muted);padding:4px 8px;text-align:left">记录时间</th>
+                <th style="font-size:11px;color:var(--muted);padding:4px 8px;text-align:left">分数</th>
+                <th style="font-size:11px;color:var(--muted);padding:4px 8px;text-align:left">模型</th>
+                <th style="font-size:11px;color:var(--muted);padding:4px 8px;text-align:left">来源日期</th>
+              </tr>
+            </thead>
+            <tbody>{hist_rows}</tbody>
+          </table>
+        </td>
+      </tr>"""
 
     return f"""
       <tr>
@@ -70,7 +131,7 @@ def render_benchmark_row(bm):
         <td class="bm-model">{model_html}</td>
         <td class="bm-date">{date_html}</td>
         <td class="bm-links">{links_html}</td>
-      </tr>"""
+      </tr>{history_row}"""
 
 
 def render_category_section(cat):
@@ -395,6 +456,18 @@ def generate_html(data):
     .score-low   {{ background: rgba(239,68,68,0.15);  color: var(--red); }}
     .score-unknown {{ background: var(--surface); color: var(--muted); }}
 
+    /* ── History rows ── */
+    .history-row td {{ background: rgba(99,102,241,0.04); }}
+    a.history-toggle {{
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1px 8px;
+    }}
+    a.history-toggle:hover {{ color: var(--accent-light); border-color: var(--accent); }}
+
     /* ── Footer ── */
     footer {{
       text-align: center;
@@ -508,6 +581,20 @@ def generate_html(data):
 
   document.getElementById("model-input").addEventListener("keydown", e => {{
     if (e.key === "Enter") searchModel();
+  }});
+
+  // ── History toggle ──
+  document.addEventListener("click", e => {{
+    const toggle = e.target.closest(".history-toggle");
+    if (!toggle) return;
+    e.preventDefault();
+    const target = document.getElementById(toggle.dataset.target);
+    if (!target) return;
+    const hidden = target.style.display === "none";
+    target.style.display = hidden ? "table-row" : "none";
+    toggle.textContent = hidden
+      ? toggle.textContent.replace("历史", "收起")
+      : toggle.textContent.replace("收起", "历史");
   }});
 </script>
 

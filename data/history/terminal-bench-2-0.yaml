@@ -1,0 +1,8 @@
+- score: 50.0%
+  model: Claude Sonnet 4.5
+  date: '2026-01'
+  recorded_at: '2026-06-02'
+- score: 82.7%
+  model: GPT-5.5
+  date: '2026-06'
+  recorded_at: '2026-06-02'

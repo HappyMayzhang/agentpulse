@@ -3,7 +3,8 @@ check_updates.py — AgentPulse SOTA 更新检查脚本
 
 数据来源：
   llm-stats.com REST API（覆盖 5/7 benchmark）
-  WebArena / GAIA：llm-stats 未收录，标记为需人工检查
+  GAIA：HuggingFace gaia-benchmark/results_public parquet
+  WebArena：llm-stats 未收录，标记为需人工检查
 
 用法：
   python scripts/check_updates.py              # 只检查，打印报告
@@ -23,8 +24,16 @@ import time
 from datetime import date as _date
 from pathlib import Path
 
+import io
+
 import requests
 import yaml
+
+try:
+    import pyarrow.parquet as pq
+    _HAS_PYARROW = True
+except ImportError:
+    _HAS_PYARROW = False
 
 # ── 加载 .env（本地开发用）──────────────────────────────────────────────────
 _env_path = Path(__file__).parent.parent / ".env"
@@ -84,7 +93,47 @@ LLM_STATS_ID_MAP = {
 # llm-stats 未收录，需人工检查
 MANUAL_CHECK = {
     "WebArena": "https://benchlm.ai/benchmarks/webArena",
-    "GAIA":     "https://huggingface.co/spaces/gaia-benchmark/leaderboard",
+}
+
+# ── GAIA：直接读 HuggingFace parquet ────────────────────────────────────────
+_GAIA_PARQUET = (
+    "https://huggingface.co/datasets/gaia-benchmark/results_public"
+    "/resolve/refs%2Fconvert%2Fparquet/2023/test/0000.parquet"
+)
+
+
+def fetch_gaia_sota() -> dict | None:
+    """从 HuggingFace gaia-benchmark/results_public 拉取 GAIA test SOTA"""
+    if not _HAS_PYARROW:
+        print("  [GAIA 跳过] 缺少 pyarrow，请运行：pip install pyarrow")
+        return None
+    try:
+        r = requests.get(_GAIA_PARQUET, timeout=30)
+        r.raise_for_status()
+        table = pq.read_table(io.BytesIO(r.content))
+        d = table.to_pydict()
+        raw_scores = d.get("score", [])
+        scores = [float(s) if s is not None else -1.0 for s in raw_scores]
+        if not scores:
+            return None
+        idx = max(range(len(scores)), key=lambda i: scores[i])
+        model = str((d.get("model") or [""])[idx] or "")
+        date  = str((d.get("date") or [""])[idx] or "")
+        return {
+            "sota_score":       f"{scores[idx] * 100:.1f}%",
+            "sota_model":       model,
+            "sota_date":        date[:7],
+            "is_self_reported": True,
+            "source":           "huggingface.co / gaia-benchmark/results_public",
+        }
+    except Exception as e:
+        print(f"  [GAIA 获取错误] {e}")
+        return None
+
+
+# 自定义 fetcher：benchmark name → fetch 函数（签名：() -> dict | None）
+CUSTOM_FETCHERS = {
+    "GAIA": fetch_gaia_sota,
 }
 
 
@@ -155,14 +204,17 @@ def check_all(data: dict, api_key: str) -> tuple[list[dict], list[str]]:
                 manual_needed.append(name)
                 continue
 
-            bm_id = LLM_STATS_ID_MAP.get(name)
-            if bm_id is None:
-                print(f"  [跳过] {name}：未配置数据源")
-                continue
-
-            print(f"  检查 {name} (当前 SOTA: {old_score or '—'})")
-            fetched = fetch_top_score(bm_id, api_key)
-            time.sleep(0.3)
+            if name in CUSTOM_FETCHERS:
+                print(f"  检查 {name} (当前 SOTA: {old_score or '—'})")
+                fetched = CUSTOM_FETCHERS[name]()
+            else:
+                bm_id = LLM_STATS_ID_MAP.get(name)
+                if bm_id is None:
+                    print(f"  [跳过] {name}：未配置数据源")
+                    continue
+                print(f"  检查 {name} (当前 SOTA: {old_score or '—'})")
+                fetched = fetch_top_score(bm_id, api_key)
+                time.sleep(0.3)
 
             if fetched and is_higher(fetched["sota_score"], old_score):
                 updates.append({

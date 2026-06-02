@@ -31,11 +31,10 @@ llm-stats API 返回 `is_self_reported` 和 `verified` 字段，目前丢弃了�
 
 ## P1 — 自动化补全
 
-### [ ] GAIA 自动追踪
-llm-stats 未收录，备选方案：
-- HuggingFace Datasets API（GAIA leaderboard 背后可能挂 HF dataset）
-- 库：`huggingface_hub`
-- 探索入口：`https://huggingface.co/spaces/gaia-benchmark/leaderboard`
+### [x] GAIA 自动追踪
+数据源：`gaia-benchmark/results_public` parquet（HuggingFace Datasets Server）
+- 单次 HTTP 请求下载 ~110KB parquet，pyarrow 解析，找最高 score 行
+- 已加入 `CUSTOM_FETCHERS`，无需 llm-stats API key
 
 ### [ ] WebArena 自动追踪
 llm-stats 未收录，备选方案：
@@ -88,4 +87,4 @@ llm-stats 未收录，备选方案：
 ## 手动检查清单（每次更新时参考）
 
 - [ ] WebArena：`https://benchlm.ai/benchmarks/webArena`
-- [ ] GAIA：`https://huggingface.co/spaces/gaia-benchmark/leaderboard`
+- [x] GAIA：自动追踪（parquet）

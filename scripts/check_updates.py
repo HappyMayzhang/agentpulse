@@ -35,10 +35,11 @@ if _env_path.exists():
             k, v = line.split("=", 1)
             os.environ.setdefault(k.strip(), v.strip())
 
-ROOT         = Path(__file__).parent.parent
-YAML_PATH    = ROOT / "data" / "benchmarks.yaml"
-SUMMARY_PATH = ROOT / "data" / "_pending_updates.json"
-HISTORY_DIR  = ROOT / "data" / "history"
+ROOT          = Path(__file__).parent.parent
+YAML_PATH     = ROOT / "data" / "benchmarks.yaml"
+SUMMARY_PATH  = ROOT / "data" / "_pending_updates.json"
+PR_BODY_PATH  = ROOT / "data" / "_pr_body.md"
+HISTORY_DIR   = ROOT / "data" / "history"
 
 
 def name_to_slug(name: str) -> str:
@@ -203,6 +204,36 @@ def apply_updates(data: dict, updates: list[dict]) -> dict:
     return data
 
 
+def generate_pr_body(updates: list[dict], manual_needed: list[str]) -> str:
+    today = _date.today().isoformat()
+    rows = "\n".join(
+        "| {name} | {old} | {new} | {model} | {src} |".format(
+            name=u["name"],
+            old=u["old_score"],
+            new=u["new_score"],
+            model=u["new_model"] or "—",
+            src=u["source"],
+        )
+        for u in updates
+    )
+    body = f"""## AgentPulse SOTA 自动更新 — {today}
+
+自动检测到 **{len(updates)}** 个 benchmark 出现新 SOTA，已写入 `data/benchmarks.yaml`。
+
+### 更新详情
+
+| Benchmark | 旧 SOTA | 新 SOTA | 模型 | 来源 |
+|-----------|---------|---------|------|------|
+{rows}
+"""
+    if manual_needed:
+        links = "\n".join(f"- {n}：{MANUAL_CHECK[n]}" for n in manual_needed)
+        body += f"\n### 需人工检查（llm-stats 未收录）\n\n{links}\n"
+
+    body += "\n---\n*由 GitHub Actions 自动生成，请 review 后合并。*\n"
+    return body
+
+
 def print_report(updates: list[dict], manual_needed: list[str]):
     if updates:
         print(f"\n发现 {len(updates)} 处更新：")
@@ -266,6 +297,10 @@ def main():
         with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
             json.dump(updates, f, ensure_ascii=False, indent=2)
         print(f"摘要已写入：{SUMMARY_PATH}")
+        pr_body = generate_pr_body(updates, manual_needed)
+        with open(PR_BODY_PATH, "w", encoding="utf-8") as f:
+            f.write(pr_body)
+        print(f"PR body 已写入：{PR_BODY_PATH}")
         sys.exit(1)
 
 

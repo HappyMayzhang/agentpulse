@@ -49,7 +49,7 @@ llm-stats 未收录，备选方案：
 - 调用 llm-stats `/stats/v1/updates?days=7`，过滤 `category` 包含 `agent`/`code`/`tool` 的新条目
 - 有新条目时自动在 GitHub 开 issue，提醒人工评估是否纳入
 
-### [ ] PR body 改进
+### [x] PR body 改进
 当前自动创建的 PR 内容信息量不足。
 
 - 在 PR body 里自动生成新旧分数对比表

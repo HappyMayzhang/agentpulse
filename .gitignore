@@ -3,3 +3,4 @@ __pycache__/
 *.pyo
 .env
 data/_pending_updates.json
+data/_pr_body.md

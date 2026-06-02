@@ -44,18 +44,6 @@ jobs:
           branch: auto-update/sota-${{ github.run_id }}
           commit-message: "data: auto-update SOTA scores"
           title: "[Auto] SOTA 更新"
-          body: |
-            由 GitHub Actions 自动创建，检测到以下 benchmark 有 SOTA 更新。
-
-            **请人工审核后合并。**
-
-            ---
-            数据来源：llm-stats.com API
-            运行时间：${{ github.event.repository.updated_at }}
-
-            > 合并前请验证：
-            > - [ ] 分数来源为官方 leaderboard 或论文原文
-            > - [ ] 模型名称使用官方名称（含版本号）
-            > - [ ] 日期为结果公布日期
+          body-path: data/_pr_body.md
           labels: automated-update
           delete-branch: true

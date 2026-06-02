@@ -42,7 +42,7 @@ llm-stats 未收录，备选方案：
 - 检查官方 GitHub repo（`web-arena-x/webarena`）是否有 `results.json`
 - 探索入口：`https://github.com/web-arena-x/webarena`
 
-### [ ] 新 benchmark 发现脚本
+### [x] 新 benchmark 发现脚本
 目前新 benchmark 出现完全靠人工感知。
 
 - 每周跑一次 `scripts/discover_new.py`

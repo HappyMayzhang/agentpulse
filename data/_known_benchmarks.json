@@ -1,0 +1,694 @@
+{
+  "acebench": {
+    "name": "ACEBench",
+    "categories": [
+      "finance",
+      "general",
+      "healthcare",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "aitz-em": {
+    "name": "AITZ_EM",
+    "categories": [
+      "agents",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "androidworld": {
+    "name": "AndroidWorld",
+    "categories": [
+      "agents",
+      "vision"
+    ]
+  },
+  "androidworld-sr": {
+    "name": "AndroidWorld_SR",
+    "categories": [
+      "agents",
+      "general",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "apex-agents": {
+    "name": "APEX-Agents",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "api-bank": {
+    "name": "API-Bank",
+    "categories": [
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "bfcl": {
+    "name": "BFCL",
+    "categories": [
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "bfcl-v2": {
+    "name": "BFCL v2",
+    "categories": [
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "bfcl-v3": {
+    "name": "BFCL-v3",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+    ]
+  },
+  "bfcl-v3-multiturn": {
+    "name": "BFCL_v3_MultiTurn",
+    "categories": [
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "bfcl-v4": {
+    "name": "BFCL-V4",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "bixbench": {
+    "name": "BixBench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "science"
+    ]
+  },
+  "blueprint-bench-2": {
+    "name": "Blueprint-Bench 2",
+    "categories": [
+      "agents",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "browsecomp": {
+    "name": "BrowseComp",
+    "categories": [
+      "agents",
+      "reasoning",
+      "search"
+    ]
+  },
+  "browsecomp-vl": {
+    "name": "BrowseComp-VL",
+    "categories": [
+      "agents",
+      "multimodal",
+      "search",
+      "vision"
+    ]
+  },
+  "cc-bench-v2-repo": {
+    "name": "CC-Bench-V2 Repo Exploration",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "claw-eval": {
+    "name": "Claw-Eval",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "complexfuncbench": {
+    "name": "ComplexFuncBench",
+    "categories": [
+      "long_context",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+    ]
+  },
+  "coworkbench": {
+    "name": "CoWorkBench",
+    "categories": [
+      "agents",
+      "productivity",
+      "reasoning"
+    ]
+  },
+  "cybench": {
+    "name": "CyBench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "cybergym": {
+    "name": "CyberGym",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "deep-planning": {
+    "name": "DeepPlanning",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "deepsearchqa": {
+    "name": "DeepSearchQA",
+    "categories": [
+      "agents",
+      "reasoning",
+      "search"
+    ]
+  },
+  "finance-agent": {
+    "name": "Finance Agent",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "fullstackbench-en": {
+    "name": "FullStackBench en",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "fullstackbench-zh": {
+    "name": "FullStackBench zh",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "gdpval-aa": {
+    "name": "GDPval-AA",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "genebench": {
+    "name": "GeneBench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "science"
+    ]
+  },
+  "gorilla-benchmark-api-bench": {
+    "name": "Gorilla Benchmark API Bench",
+    "categories": [
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "imagemining": {
+    "name": "ImageMining",
+    "categories": [
+      "agents",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "kernel-bench-l3": {
+    "name": "Kernel Bench L3",
+    "categories": [
+      "agents",
+      "coding",
+      "systems"
+    ]
+  },
+  "mcp-atlas": {
+    "name": "MCP Atlas",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "mcp-mark": {
+    "name": "MCP-Mark",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "mcp-universe": {
+    "name": "MCP-Universe",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "mewc": {
+    "name": "MEWC",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "mle-bench-lite": {
+    "name": "MLE-Bench Lite",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "mm-browsercomp": {
+    "name": "MM-BrowserComp",
+    "categories": [
+      "agents",
+      "multimodal",
+      "search"
+    ]
+  },
+  "mm-clawbench": {
+    "name": "MM-ClawBench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "mm-mind2web": {
+    "name": "MM-Mind2Web",
+    "categories": [
+      "agents",
+      "frontend_development",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "mmsearch": {
+    "name": "MMSearch",
+    "categories": [
+      "agents",
+      "multimodal",
+      "search"
+    ]
+  },
+  "mmsearch-plus": {
+    "name": "MMSearch-Plus",
+    "categories": [
+      "agents",
+      "multimodal",
+      "search"
+    ]
+  },
+  "mobileminiwob++-sr": {
+    "name": "MobileMiniWob++_SR",
+    "categories": [
+      "agents",
+      "frontend_development",
+      "multimodal"
+    ]
+  },
+  "nexus": {
+    "name": "Nexus",
+    "categories": [
+      "general",
+      "tool_calling"
+    ]
+  },
+  "nl2repo": {
+    "name": "NL2Repo",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "officeqa-pro": {
+    "name": "OfficeQA Pro",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "omnigaia": {
+    "name": "OmniGAIA",
+    "categories": [
+      "agents",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "openrca": {
+    "name": "OpenRCA",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "osworld": {
+    "name": "OSWorld",
+    "categories": [
+      "agents",
+      "general",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "osworld-extended": {
+    "name": "OSWorld Extended",
+    "categories": [
+      "agents",
+      "general",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "osworld-g": {
+    "name": "OSWorld-G",
+    "categories": [
+      "agents",
+      "grounding",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "osworld-screenshot-only": {
+    "name": "OSWorld Screenshot-only",
+    "categories": [
+      "agents",
+      "general",
+      "grounding",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "osworld-verified": {
+    "name": "OSWorld-Verified",
+    "categories": [
+      "agents",
+      "general",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "paperbench": {
+    "name": "PaperBench",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "pinchbench": {
+    "name": "PinchBench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "qwen-svg": {
+    "name": "QwenSVG",
+    "categories": [
+      "agents",
+      "coding",
+      "multimodal"
+    ]
+  },
+  "qwenwebbench": {
+    "name": "QwenWebBench",
+    "categories": [
+      "agents",
+      "coding",
+      "multimodal"
+    ]
+  },
+  "qwenworldbench": {
+    "name": "QwenWorldBench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "simulation"
+    ]
+  },
+  "sifo": {
+    "name": "SIFO",
+    "categories": [
+      "agents",
+      "general",
+      "instruction_following",
+      "structured_output"
+    ]
+  },
+  "sifo-multiturn": {
+    "name": "SIFO-Multiturn",
+    "categories": [
+      "agents",
+      "general",
+      "structured_output"
+    ]
+  },
+  "skillsbench": {
+    "name": "SkillsBench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "spreadsheetbench-v1": {
+    "name": "SpreadSheetBench-v1",
+    "categories": [
+      "agents",
+      "productivity",
+      "tool_calling"
+    ]
+  },
+  "swe-bench-multimodal": {
+    "name": "SWE-Bench Multimodal",
+    "categories": [
+      "agents",
+      "code",
+      "multimodal",
+      "reasoning",
+      "vision"
+    ]
+  },
+  "swe-bench-pro": {
+    "name": "SWE-Bench Pro",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "t2-bench": {
+    "name": "t2-bench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau2-airline": {
+    "name": "Tau2 Airline",
+    "categories": [
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau2-retail": {
+    "name": "Tau2 Retail",
+    "categories": [
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau2-telecom": {
+    "name": "Tau2 Telecom",
+    "categories": [
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau3-airline": {
+    "name": "Tau3 Airline",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau3-banking": {
+    "name": "Tau3 Banking",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau3-bench": {
+    "name": "TAU3-Bench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau3-retail": {
+    "name": "Tau3 Retail",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau3-telecom": {
+    "name": "Tau3 Telecom",
+    "categories": [
+      "agents",
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau-bench": {
+    "name": "Tau-bench",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau-bench-airline": {
+    "name": "TAU-bench Airline",
+    "categories": [
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "tau-bench-retail": {
+    "name": "TAU-bench Retail",
+    "categories": [
+      "communication",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "terminal-bench": {
+    "name": "Terminal-Bench",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "terminal-bench-2": {
+    "name": "Terminal-Bench 2.0",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "terminus": {
+    "name": "Terminus",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "tir-bench": {
+    "name": "TIR-Bench",
+    "categories": [
+      "agents",
+      "multimodal",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "toolathlon": {
+    "name": "Toolathlon",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "vending-bench-2": {
+    "name": "Vending-Bench 2",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "vibe-pro": {
+    "name": "VIBE-Pro",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "vita-bench": {
+    "name": "VITA-Bench",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "webvoyager": {
+    "name": "WebVoyager",
+    "categories": [
+      "agents",
+      "vision"
+    ]
+  },
+  "widesearch": {
+    "name": "WideSearch",
+    "categories": [
+      "agents",
+      "reasoning",
+      "search"
+    ]
+  },
+  "zclawbench": {
+    "name": "ZClawBench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  }
+}

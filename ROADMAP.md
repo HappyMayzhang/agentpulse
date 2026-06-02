@@ -36,10 +36,10 @@ llm-stats API 返回 `is_self_reported` 和 `verified` 字段，目前丢弃了�
 - 单次 HTTP 请求下载 ~110KB parquet，pyarrow 解析，找最高 score 行
 - 已加入 `CUSTOM_FETCHERS`，无需 llm-stats API key
 
-### [ ] WebArena 自动追踪
-llm-stats 未收录，备选方案：
-- 检查官方 GitHub repo（`web-arena-x/webarena`）是否有 `results.json`
-- 探索入口：`https://github.com/web-arena-x/webarena`
+### [x] WebArena 自动追踪
+数据源：官方 Google Sheets leaderboard CSV 导出（无需 API key）
+- 官方 GitHub README 链接的 Sheets：`1M801lEpBbKSNwP-vDBkC_pF7LdyGU1f_ufZb_NWNBZQ`
+- 解析 "Success Rate (%)" 列，日期格式 MM/YYYY → YYYY-MM
 
 ### [x] 新 benchmark 发现脚本
 目前新 benchmark 出现完全靠人工感知。
@@ -78,7 +78,7 @@ llm-stats 未收录，备选方案：
 
 | 限制 | 原因 |
 |------|------|
-| WebArena / GAIA 暂时手动 | 没有可靠的机器可读数据源，探索中 |
+| WebArena / GAIA 已自动 | WebArena: Google Sheets CSV；GAIA: HF parquet |
 | 自报数据无法验证 | llm-stats 本身也依赖厂商提交，标注出来即可 |
 | 历史数据从现在才开始积累 | 没有可靠的历史数据来源，只能从现在往后记 |
 
@@ -86,5 +86,5 @@ llm-stats 未收录，备选方案：
 
 ## 手动检查清单（每次更新时参考）
 
-- [ ] WebArena：`https://benchlm.ai/benchmarks/webArena`
+- [x] WebArena：自动追踪（Google Sheets CSV）
 - [x] GAIA：自动追踪（parquet）

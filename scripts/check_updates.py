@@ -1,10 +1,10 @@
 """
 check_updates.py — AgentPulse SOTA 更新检查脚本
 
-数据来源：
-  llm-stats.com REST API（覆盖 5/7 benchmark）
-  GAIA：HuggingFace gaia-benchmark/results_public parquet
-  WebArena：llm-stats 未收录，标记为需人工检查
+数据来源（7/7 benchmark 全自动）：
+  llm-stats.com REST API   → SWE-bench Verified / Terminal-Bench 2.0 / OSWorld / Toolathlon / τ-bench
+  HuggingFace parquet      → GAIA（gaia-benchmark/results_public）
+  Google Sheets CSV        → WebArena（官方 leaderboard）
 
 用法：
   python scripts/check_updates.py              # 只检查，打印报告
@@ -90,10 +90,53 @@ LLM_STATS_ID_MAP = {
     "τ-bench":            "tau-bench",
 }
 
-# llm-stats 未收录，需人工检查
-MANUAL_CHECK = {
-    "WebArena": "https://benchlm.ai/benchmarks/webArena",
-}
+# llm-stats 未收录且无自动数据源的 benchmark（目前已全部自动化）
+MANUAL_CHECK: dict[str, str] = {}
+
+# ── WebArena：官方 Google Sheets leaderboard CSV ─────────────────────────────
+_WEBARENA_CSV = (
+    "https://docs.google.com/spreadsheets/d/"
+    "1M801lEpBbKSNwP-vDBkC_pF7LdyGU1f_ufZb_NWNBZQ/export?format=csv"
+)
+
+
+def fetch_webarena_sota() -> dict | None:
+    """从 WebArena 官方 Google Sheets leaderboard 拉取最高分"""
+    import csv as _csv
+    try:
+        r = requests.get(_WEBARENA_CSV, timeout=15)
+        r.raise_for_status()
+        reader = _csv.DictReader(r.text.splitlines())
+        best: dict | None = None
+        best_score = -1.0
+        for row in reader:
+            try:
+                score = float(row.get("Success Rate (%)", "").strip())
+            except ValueError:
+                continue
+            if score > best_score:
+                best_score = score
+                best = row
+        if best is None:
+            return None
+        # 日期格式 "02/2026" → "2026-02"
+        raw_date = best.get("a", "").strip()
+        try:
+            month, year = raw_date.split("/")
+            iso_date = f"{year}-{month.zfill(2)}"
+        except Exception:
+            iso_date = raw_date
+        is_self_reported = "self-reported" in best.get("Result Source", "").lower()
+        return {
+            "sota_score":       f"{best_score:.1f}%",
+            "sota_model":       best.get("Model", "").strip(),
+            "sota_date":        iso_date,
+            "is_self_reported": is_self_reported,
+            "source":           "docs.google.com / WebArena leaderboard",
+        }
+    except Exception as e:
+        print(f"  [WebArena 获取错误] {e}")
+        return None
 
 # ── GAIA：直接读 HuggingFace parquet ────────────────────────────────────────
 _GAIA_PARQUET = (
@@ -133,7 +176,8 @@ def fetch_gaia_sota() -> dict | None:
 
 # 自定义 fetcher：benchmark name → fetch 函数（签名：() -> dict | None）
 CUSTOM_FETCHERS = {
-    "GAIA": fetch_gaia_sota,
+    "GAIA":     fetch_gaia_sota,
+    "WebArena": fetch_webarena_sota,
 }
 
 

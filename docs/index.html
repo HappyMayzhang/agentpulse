@@ -253,6 +253,27 @@
     .score-low   { background: rgba(239,68,68,0.15);  color: var(--red); }
     .score-unknown { background: var(--surface); color: var(--muted); }
 
+    /* ── Credibility badges ── */
+    .badge-self-reported {
+      font-size: 11px;
+      color: #f59e0b;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      vertical-align: middle;
+      cursor: help;
+    }
+    .badge-verified {
+      font-size: 11px;
+      color: var(--green);
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      vertical-align: middle;
+    }
+
     /* ── History rows ── */
     .history-row td { background: rgba(99,102,241,0.04); }
     a.history-toggle {
@@ -339,7 +360,7 @@
       <tr>
         <td class="bm-name" title="给定 issue 描述和代码仓库，Agent 生成可通过所有测试用例的 patch">SWE-bench Verified</td>
         <td class="bm-desc">真实 GitHub issue 修复任务，Verified 子集经人工验证质量，是 Agent 代码能力的主流标准</td>
-        <td class="bm-score"><span class="score score-high">93.9%</span></td>
+        <td class="bm-score"><span class="score score-high">93.9%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
         <td class="bm-date">2026-05</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2310.06770" target="_blank" rel="noopener">论文</a> · <a href="https://www.swebench.com/" target="_blank" rel="noopener">Leaderboard</a></td>
@@ -370,7 +391,7 @@
       <tr>
         <td class="bm-name" title="Agent 在容器化 Linux 环境中通过 shell 完成任务，程序化状态验证">Terminal-Bench 2.0</td>
         <td class="bm-desc">在真实 Linux 环境中完成命令行任务，89 个经人工验证的高难度任务，Docker 沙箱执行</td>
-        <td class="bm-score"><span class="score score-mid">82.7%</span></td>
+        <td class="bm-score"><span class="score score-mid">82.7%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">GPT-5.5</td>
         <td class="bm-date">2026-06</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2601.11868" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/harbor-framework/terminal-bench" target="_blank" rel="noopener">Leaderboard</a> · <a class="history-toggle" data-target="hist-terminal-bench-2-0" href="#">历史(2)</a></td>
@@ -405,7 +426,7 @@
       <tr>
         <td class="bm-name" title="Agent 在浏览器中操作真实网站，通过程序化检查验证任务完成情况">WebArena</td>
         <td class="bm-desc">CMU 出品，在电商/代码托管/论坛等真实网站完成多步任务的网页交互 Agent 评测</td>
-        <td class="bm-score"><span class="score score-mid">68.7%</span></td>
+        <td class="bm-score"><span class="score score-mid">68.7%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
         <td class="bm-date">2026-05</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2307.13854" target="_blank" rel="noopener">论文</a> · <a href="https://benchlm.ai/benchmarks/webArena" target="_blank" rel="noopener">Leaderboard</a></td>
@@ -413,7 +434,7 @@
       <tr>
         <td class="bm-name" title="Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态">OSWorld</td>
         <td class="bm-desc">Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测</td>
-        <td class="bm-score"><span class="score score-mid">72.7%</span></td>
+        <td class="bm-score"><span class="score score-mid">72.7%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Opus 4.6</td>
         <td class="bm-date">2026-05</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2404.07972" target="_blank" rel="noopener">论文</a> · <a href="https://llm-stats.com/benchmarks/osworld" target="_blank" rel="noopener">Leaderboard</a></td>
@@ -444,7 +465,7 @@
       <tr>
         <td class="bm-name" title="给定工具集和任务目标，评估 Agent 能否通过多步工具调用完成，成功率评分">Toolathlon</td>
         <td class="bm-desc">HKUST 出品（ICLR 2026），600+ 工具，真实软件环境中的长链工具调用任务，难度极高</td>
-        <td class="bm-score"><span class="score score-low">59.9%</span></td>
+        <td class="bm-score"><span class="score score-low">59.9%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Opus 4.8</td>
         <td class="bm-date">2026-06</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2510.25726" target="_blank" rel="noopener">论文</a> · <a href="https://github.com/hkust-nlp/Toolathlon" target="_blank" rel="noopener">Leaderboard</a></td>
@@ -452,7 +473,7 @@
       <tr>
         <td class="bm-name" title="用户由 LLM 模拟，评估工具调用准确率和政策遵循率；pass^k 专门考察一致性">τ-bench</td>
         <td class="bm-desc">Sierra Research 出品，模拟真实客服场景（零售/航空/银行），Agent 需在多轮对话中遵循政策并调用 API 完成任务</td>
-        <td class="bm-score"><span class="score score-mid">89.2%</span></td>
+        <td class="bm-score"><span class="score score-mid">89.2%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
         <td class="bm-date">2026-04</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2406.12045" target="_blank" rel="noopener">论文</a> · <a href="https://benchlm.ai/benchmarks/tauBench" target="_blank" rel="noopener">Leaderboard</a></td>
@@ -483,7 +504,7 @@
       <tr>
         <td class="bm-name" title="Agent 自由使用工具解决问题；裸模型和带脚手架两种设置分数差异显著（+30%），需注明">GAIA</td>
         <td class="bm-desc">Meta 出品，450 道需要多步推理+网页浏览+工具调用的真实问题，答案无歧义，按难度分 3 级</td>
-        <td class="bm-score"><span class="score score-low">52.3%</span></td>
+        <td class="bm-score"><span class="score score-low">52.3%</span> <span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span></td>
         <td class="bm-model">Claude Mythos Preview</td>
         <td class="bm-date">2026-05</td>
         <td class="bm-links"><a href="https://arxiv.org/abs/2311.12983" target="_blank" rel="noopener">论文</a> · <a href="https://huggingface.co/spaces/gaia-benchmark/leaderboard" target="_blank" rel="noopener">Leaderboard</a></td>

@@ -85,8 +85,10 @@ def render_benchmark_row(bm):
 
     history = load_history(name)
 
+    is_self_reported = bm.get("is_self_reported", True)
     score_cls = score_color(score)
-    score_html = f'<span class="score {score_cls}">{score if score else "—"}</span>'
+    credibility = '<span class="badge-self-reported" title="厂商自报数据，未经第三方独立验证">⚠ 自报</span>' if is_self_reported else '<span class="badge-verified" title="经第三方独立验证">✓ 验证</span>'
+    score_html = f'<span class="score {score_cls}">{score if score else "—"}</span> {credibility if score else ""}'
 
     links = []
     if source:
@@ -455,6 +457,27 @@ def generate_html(data):
     .score-mid   {{ background: rgba(234,179,8,0.15);  color: var(--yellow); }}
     .score-low   {{ background: rgba(239,68,68,0.15);  color: var(--red); }}
     .score-unknown {{ background: var(--surface); color: var(--muted); }}
+
+    /* ── Credibility badges ── */
+    .badge-self-reported {{
+      font-size: 11px;
+      color: #f59e0b;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      vertical-align: middle;
+      cursor: help;
+    }}
+    .badge-verified {{
+      font-size: 11px;
+      color: var(--green);
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      vertical-align: middle;
+    }}
 
     /* ── History rows ── */
     .history-row td {{ background: rgba(99,102,241,0.04); }}

@@ -20,7 +20,7 @@
   ```
 - `generate_site.py` 读取历史记录，每个 benchmark 卡片下方显示变化时间线
 
-### [ ] 数据可信度标注
+### [x] 数据可信度标注
 llm-stats API 返回 `is_self_reported` 和 `verified` 字段，目前丢弃了。
 
 - YAML 里加 `is_self_reported` 字段

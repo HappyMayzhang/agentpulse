@@ -111,10 +111,11 @@ def fetch_top_score(benchmark_id: str, api_key: str) -> dict | None:
             return None
         top = scores[0]
         return {
-            "sota_score": f"{top['score'] * 100:.1f}%",
-            "sota_model": top.get("model_name", ""),
-            "sota_date":  top.get("scored_at", "")[:7],
-            "source":     f"llm-stats.com / {benchmark_id}",
+            "sota_score":      f"{top['score'] * 100:.1f}%",
+            "sota_model":      top.get("model_name", ""),
+            "sota_date":       top.get("scored_at", "")[:7],
+            "is_self_reported": top.get("is_self_reported", True),
+            "source":          f"llm-stats.com / {benchmark_id}",
         }
     except Exception as e:
         print(f"  [API 错误] {benchmark_id}: {e}")
@@ -164,13 +165,14 @@ def check_all(data: dict, api_key: str) -> tuple[list[dict], list[str]]:
 
             if fetched and is_higher(fetched["sota_score"], old_score):
                 updates.append({
-                    "category":  cat["name"],
-                    "name":      name,
-                    "old_score": old_score or "—",
-                    "new_score": fetched["sota_score"],
-                    "new_model": fetched["sota_model"],
-                    "new_date":  fetched["sota_date"],
-                    "source":    fetched["source"],
+                    "category":        cat["name"],
+                    "name":            name,
+                    "old_score":       old_score or "—",
+                    "new_score":       fetched["sota_score"],
+                    "new_model":       fetched["sota_model"],
+                    "new_date":        fetched["sota_date"],
+                    "is_self_reported": fetched.get("is_self_reported", True),
+                    "source":          fetched["source"],
                 })
 
     return updates, manual_needed
@@ -196,6 +198,8 @@ def apply_updates(data: dict, updates: list[dict]) -> dict:
             bm["sota_model"] = u["new_model"]
         if u["new_date"]:
             bm["sota_date"] = u["new_date"]
+        if "is_self_reported" in u:
+            bm["is_self_reported"] = u["is_self_reported"]
     return data
 
 

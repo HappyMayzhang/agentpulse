@@ -10,6 +10,7 @@ categories:
     sota_date: 2026-05
     source_url: https://arxiv.org/abs/2310.06770
     official_leaderboard: https://www.swebench.com/
+    is_self_reported: true
 - name: 环境交互 Agent
   description: 在真实操作系统、网页或桌面环境中自主完成多步任务
   benchmarks:
@@ -21,6 +22,7 @@ categories:
     sota_date: 2026-06
     source_url: https://arxiv.org/abs/2601.11868
     official_leaderboard: https://github.com/harbor-framework/terminal-bench
+    is_self_reported: true
   - name: WebArena
     description: CMU 出品，在电商/代码托管/论坛等真实网站完成多步任务的网页交互 Agent 评测
     methodology: Agent 在浏览器中操作真实网站，通过程序化检查验证任务完成情况
@@ -29,6 +31,7 @@ categories:
     sota_date: 2026-05
     source_url: https://arxiv.org/abs/2307.13854
     official_leaderboard: https://benchlm.ai/benchmarks/webArena
+    is_self_reported: true
   - name: OSWorld
     description: Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测
     methodology: Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态
@@ -37,6 +40,7 @@ categories:
     sota_date: 2026-05
     source_url: https://arxiv.org/abs/2404.07972
     official_leaderboard: https://llm-stats.com/benchmarks/osworld
+    is_self_reported: true
 - name: 工具调用 Agent
   description: 评测 Agent 在复杂工具集和真实场景中的多步工具调用与规划能力
   benchmarks:
@@ -48,6 +52,7 @@ categories:
     sota_date: 2026-06
     source_url: https://arxiv.org/abs/2510.25726
     official_leaderboard: https://github.com/hkust-nlp/Toolathlon
+    is_self_reported: true
   - name: τ-bench
     description: Sierra Research 出品，模拟真实客服场景（零售/航空/银行），Agent 需在多轮对话中遵循政策并调用 API 完成任务
     methodology: 用户由 LLM 模拟，评估工具调用准确率和政策遵循率；pass^k 专门考察一致性
@@ -56,6 +61,7 @@ categories:
     sota_date: 2026-04
     source_url: https://arxiv.org/abs/2406.12045
     official_leaderboard: https://benchlm.ai/benchmarks/tauBench
+    is_self_reported: true
 - name: 通用 Agent
   description: 需要综合运用推理、工具调用、网页浏览等多种能力完成开放任务
   benchmarks:
@@ -67,3 +73,4 @@ categories:
     sota_date: 2026-05
     source_url: https://arxiv.org/abs/2311.12983
     official_leaderboard: https://huggingface.co/spaces/gaia-benchmark/leaderboard
+    is_self_reported: true

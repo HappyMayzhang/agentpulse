@@ -690,5 +690,121 @@
       "agents",
       "coding"
     ]
+  },
+  "bankertoolbench": {
+    "name": "BankerToolBench",
+    "categories": [
+      "agents",
+      "finance",
+      "tool_calling"
+    ]
+  },
+  "cl-bench": {
+    "name": "CL-bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "draco": {
+    "name": "DRACO",
+    "categories": [
+      "agents",
+      "reasoning",
+      "search"
+    ]
+  },
+  "gdpval-rubrics": {
+    "name": "GDPval-Rubrics",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "kernelbench-hard": {
+    "name": "KernelBench Hard",
+    "categories": [
+      "agents",
+      "code",
+      "systems"
+    ]
+  },
+  "livesqlbench": {
+    "name": "LiveSQLBench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "loca-bench-256k": {
+    "name": "LOCA-Bench (256k)",
+    "categories": [
+      "agents",
+      "reasoning"
+    ]
+  },
+  "posttrainbench": {
+    "name": "PostTrainBench",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "systems"
+    ]
+  },
+  "svg-bench": {
+    "name": "SVG-Bench",
+    "categories": [
+      "agents",
+      "code",
+      "multimodal"
+    ]
+  },
+  "swe-atlas-codebase-qna": {
+    "name": "SWE Atlas - Codebase QnA",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "swe-atlas-test-writing": {
+    "name": "SWE Atlas - Test Writing",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "swe-fficiency": {
+    "name": "SWE-fficiency",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "terminal-bench-2.1": {
+    "name": "Terminal-Bench 2.1",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "vibe-v2": {
+    "name": "VIBE-V2",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "yc-bench": {
+    "name": "YC-Bench",
+    "categories": [
+      "agents",
+      "finance"
+    ]
   }
 }

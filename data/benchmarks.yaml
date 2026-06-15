@@ -5,9 +5,9 @@ categories:
   - name: SWE-bench Verified
     description: 真实 GitHub issue 修复任务，Verified 子集经人工验证质量，是 Agent 代码能力的主流标准
     methodology: 给定 issue 描述和代码仓库，Agent 生成可通过所有测试用例的 patch
-    sota_score: 93.9%
-    sota_model: Claude Mythos Preview
-    sota_date: 2026-05
+    sota_score: 95.0%
+    sota_model: Claude Fable 5
+    sota_date: 2026-06
     source_url: https://arxiv.org/abs/2310.06770
     official_leaderboard: https://www.swebench.com/
     is_self_reported: true
@@ -68,9 +68,9 @@ categories:
   - name: GAIA
     description: Meta 出品，450 道需要多步推理+网页浏览+工具调用的真实问题，答案无歧义，按难度分 3 级
     methodology: Agent 自由使用工具解决问题；裸模型和带脚手架两种设置分数差异显著（+30%），需注明
-    sota_score: 52.3%
-    sota_model: Claude Mythos Preview
-    sota_date: 2026-05
+    sota_score: 93.4%
+    sota_model: CustomGPT.ai Research Lab v44
+    sota_date: 2026-06
     source_url: https://arxiv.org/abs/2311.12983
     official_leaderboard: https://huggingface.co/spaces/gaia-benchmark/leaderboard
     is_self_reported: true

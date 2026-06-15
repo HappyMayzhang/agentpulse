@@ -26,12 +26,12 @@ categories:
   - name: WebArena
     description: CMU 出品，在电商/代码托管/论坛等真实网站完成多步任务的网页交互 Agent 评测
     methodology: Agent 在浏览器中操作真实网站，通过程序化检查验证任务完成情况
-    sota_score: 68.7%
-    sota_model: Claude Mythos Preview
-    sota_date: 2026-05
+    sota_score: 74.3%
+    sota_model: Deepseek v3.2
+    sota_date: 2026-02
     source_url: https://arxiv.org/abs/2307.13854
     official_leaderboard: https://benchlm.ai/benchmarks/webArena
-    is_self_reported: true
+    is_self_reported: false
   - name: OSWorld
     description: Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测
     methodology: Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态

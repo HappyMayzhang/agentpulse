@@ -806,5 +806,95 @@
       "agents",
       "finance"
     ]
+  },
+  "automationbench": {
+    "name": "AutomationBench",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "exploitbench": {
+    "name": "ExploitBench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "frontiercode": {
+    "name": "FrontierCode",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "frontier-swe-impl": {
+    "name": "FrontierSWE (Impl.)",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "kimi-claw-24-7-bench": {
+    "name": "Kimi Claw 24/7 Bench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "kimi-code-bench-v2": {
+    "name": "Kimi Code Bench v2",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "legal-agent-benchmark": {
+    "name": "Legal Agent Benchmark",
+    "categories": [
+      "agents",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "mimo-coding-bench": {
+    "name": "MiMo Coding Bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "mls-bench-lite": {
+    "name": "MLS-Bench Lite",
+    "categories": [
+      "agents",
+      "coding",
+      "reasoning"
+    ]
+  },
+  "program-bench": {
+    "name": "Program Bench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "researchclawbench": {
+    "name": "ResearchClawBench",
+    "categories": [
+      "agents",
+      "research",
+      "tool_calling"
+    ]
+  },
+  "wildclawbench": {
+    "name": "WildClawBench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
   }
 }

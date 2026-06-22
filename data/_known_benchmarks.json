@@ -896,5 +896,100 @@
       "agents",
       "coding"
     ]
+  },
+  "claw-eval-mm": {
+    "name": "ClawEval-MM",
+    "categories": [
+      "agents",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "cohere-agentic-question-answering": {
+    "name": "Cohere Agentic Question Answering",
+    "categories": [
+      "agents",
+      "question_answering",
+      "reasoning"
+    ]
+  },
+  "cohere-data-analysis": {
+    "name": "Cohere Data Analysis",
+    "categories": [
+      "agents",
+      "data_analysis",
+      "reasoning"
+    ]
+  },
+  "cohere-memory-usage-quality": {
+    "name": "Cohere Memory Usage Quality",
+    "categories": [
+      "agents",
+      "memory",
+      "reasoning"
+    ]
+  },
+  "deepswe": {
+    "name": "DeepSWE",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "finance-agent-v2": {
+    "name": "Finance Agent v2",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "frontierswe": {
+    "name": "FrontierSWE",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "gdpval": {
+    "name": "GDPval",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "profbench": {
+    "name": "ProfBench",
+    "categories": [
+      "agents",
+      "knowledge",
+      "reasoning"
+    ]
+  },
+  "qwenclawbench": {
+    "name": "QwenClawBench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "swe-marathon": {
+    "name": "SWE-Marathon",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "terminal-bench-hard": {
+    "name": "Terminal-Bench Hard",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
   }
 }

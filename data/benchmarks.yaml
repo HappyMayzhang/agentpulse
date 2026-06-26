@@ -35,9 +35,9 @@ categories:
   - name: OSWorld
     description: Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测
     methodology: Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态
-    sota_score: 72.7%
-    sota_model: Claude Opus 4.6
-    sota_date: 2026-05
+    sota_score: 78.8%
+    sota_model: Seed 2.1 Pro
+    sota_date: 2026-06
     source_url: https://arxiv.org/abs/2404.07972
     official_leaderboard: https://llm-stats.com/benchmarks/osworld
     is_self_reported: true

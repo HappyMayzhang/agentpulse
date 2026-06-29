@@ -991,5 +991,136 @@
       "reasoning",
       "tool_calling"
     ]
+  },
+  "agents-last-exam": {
+    "name": "Agents' Last Exam",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "agent-startup-bench": {
+    "name": "Agent Startup Bench",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "creativework": {
+    "name": "CreativeWork",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "doubao-multi-turn-bench": {
+    "name": "Doubao Multi-Turn Bench",
+    "categories": [
+      "agents",
+      "general",
+      "instruction_following"
+    ]
+  },
+  "finance-agent-v1.1": {
+    "name": "Finance Agent v1.1",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "gameworld": {
+    "name": "GameWorld",
+    "categories": [
+      "agents",
+      "multimodal",
+      "reasoning"
+    ]
+  },
+  "mobileworld": {
+    "name": "MobileWorld",
+    "categories": [
+      "agents",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "onemillion-bench": {
+    "name": "OneMillion Bench",
+    "categories": [
+      "agents",
+      "long_context",
+      "reasoning"
+    ]
+  },
+  "presentbench": {
+    "name": "PresentBench",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "repo-env": {
+    "name": "Repo Env",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "seedclawbench": {
+    "name": "SeedClawBench",
+    "categories": [
+      "agents",
+      "coding",
+      "tool_calling"
+    ]
+  },
+  "swe-atlas": {
+    "name": "SWE-Atlas",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "trae-code-gen": {
+    "name": "Trae Code Gen",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "trae-error-fix": {
+    "name": "Trae Error Fix",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "web-bench": {
+    "name": "Web Bench",
+    "categories": [
+      "agents",
+      "coding"
+    ]
+  },
+  "workspace-bench": {
+    "name": "Workspace Bench",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "xdailybench": {
+    "name": "xDailyBench",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
   }
 }

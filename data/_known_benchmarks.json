@@ -1122,5 +1122,142 @@
       "general",
       "reasoning"
     ]
+  },
+  "artificial-analysis-coding-agent-index-v1.1": {
+    "name": "Artificial Analysis Coding Agent Index v1.1",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "automationbench-aa": {
+    "name": "AutomationBench-AA",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "big-finance-bench": {
+    "name": "Big Finance Bench",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "capture-the-flag-challenges": {
+    "name": "Capture-the-Flag Challenges (Internal)",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "openai-connectors": {
+    "name": "Connectors",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "exploitgym": {
+    "name": "ExploitGym",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "genebench-pro": {
+    "name": "GeneBench-Pro",
+    "categories": [
+      "agents",
+      "reasoning",
+      "science"
+    ]
+  },
+  "internal-research-debugging-evaluation": {
+    "name": "Internal Research Debugging Evaluation",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "kernelgen-1p": {
+    "name": "KernelGen 1P",
+    "categories": [
+      "agents",
+      "code",
+      "systems"
+    ]
+  },
+  "lifescibench": {
+    "name": "LifeSciBench",
+    "categories": [
+      "agents",
+      "healthcare",
+      "reasoning",
+      "science"
+    ]
+  },
+  "management-consulting-tasks": {
+    "name": "Management Consulting Tasks (Internal)",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "nanogpt": {
+    "name": "NanoGPT",
+    "categories": [
+      "agents",
+      "code",
+      "systems"
+    ]
+  },
+  "osworld-2.0": {
+    "name": "OSWorld 2.0",
+    "categories": [
+      "agents",
+      "general",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "posttrainbench-lite": {
+    "name": "PostTrainBench Lite",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "systems"
+    ]
+  },
+  "rsi-index": {
+    "name": "RSI Index",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "systems"
+    ]
+  },
+  "openai-search-function-calling": {
+    "name": "Search and Function-Calling",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "sec-bench-pro": {
+    "name": "SEC-bench Pro",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
   }
 }

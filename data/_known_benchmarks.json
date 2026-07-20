@@ -1259,5 +1259,58 @@
       "code",
       "safety"
     ]
+  },
+  "aa-briefcase": {
+    "name": "AA-Briefcase",
+    "categories": [
+      "agents",
+      "productivity",
+      "reasoning"
+    ]
+  },
+  "cl-bench-(life)": {
+    "name": "CL-bench (Life)",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "deck-bench": {
+    "name": "DECK-Bench",
+    "categories": [
+      "agents",
+      "productivity",
+      "reasoning"
+    ]
+  },
+  "deepswe-1.0": {
+    "name": "DeepSWE 1.0",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "deepswe-1.1": {
+    "name": "DeepSWE 1.1",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "job-bench": {
+    "name": "Job Bench",
+    "categories": [
+      "agents",
+      "productivity",
+      "reasoning"
+    ]
+  },
+  "spreadsheetbench-2": {
+    "name": "SpreadsheetBench 2",
+    "categories": [
+      "agents",
+      "productivity",
+      "tool_calling"
+    ]
   }
 }

@@ -1312,5 +1312,27 @@
       "productivity",
       "tool_calling"
     ]
+  },
+  "frontier-bench-v0.1": {
+    "name": "Frontier-Bench v0.1",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "frontiercode-1.1": {
+    "name": "FrontierCode 1.1",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
+  },
+  "mle-bench": {
+    "name": "MLE-Bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
   }
 }

@@ -1334,5 +1334,19 @@
       "agents",
       "code"
     ]
+  },
+  "dsbench-fullstack": {
+    "name": "DSBench-FullStack",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "dsbench-hard": {
+    "name": "DSBench-Hard",
+    "categories": [
+      "agents",
+      "code"
+    ]
   }
 }

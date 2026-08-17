@@ -1348,5 +1348,157 @@
       "agents",
       "code"
     ]
+  },
+  "androidbench": {
+    "name": "AndroidBench",
+    "categories": [
+      "agents",
+      "code",
+      "tool_calling"
+    ]
+  },
+  "apex-swe": {
+    "name": "APEX-SWE",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "ci-memories-coverage": {
+    "name": "CI Memories Coverage",
+    "categories": [
+      "agents",
+      "memory",
+      "privacy",
+      "safety"
+    ]
+  },
+  "ci-memories-violation": {
+    "name": "CI Memories Violation Rate",
+    "categories": [
+      "agents",
+      "memory",
+      "privacy",
+      "safety"
+    ]
+  },
+  "cursorbench-3.2": {
+    "name": "CursorBench v3.2",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "gaia2": {
+    "name": "GAIA2",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "harvey-lab-aa": {
+    "name": "Harvey LAB-AA",
+    "categories": [
+      "agents",
+      "knowledge"
+    ]
+  },
+  "harvey-lab": {
+    "name": "Harvey LAB (Vals)",
+    "categories": [
+      "agents",
+      "knowledge"
+    ]
+  },
+  "labbench2": {
+    "name": "LABBench2",
+    "categories": [
+      "agents",
+      "biology",
+      "reasoning",
+      "science"
+    ]
+  },
+  "meta-internal-coding-bench": {
+    "name": "Meta Internal Coding Bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "qwen-qoder-bench": {
+    "name": "QwenQoderBench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "qwen-react-bench": {
+    "name": "QwenReactBench",
+    "categories": [
+      "agents",
+      "code",
+      "multimodal"
+    ]
+  },
+  "qwen-swe-bench": {
+    "name": "QwenSWEBench",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "recreationbench": {
+    "name": "RecreationBench",
+    "categories": [
+      "agents",
+      "code",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "siren-agentdojo-attack-success": {
+    "name": "Siren AgentDojo Attack Success Rate",
+    "categories": [
+      "agents",
+      "safety",
+      "tool_calling"
+    ]
+  },
+  "siren-agentdojo-utility": {
+    "name": "Siren AgentDojo Utility",
+    "categories": [
+      "agents",
+      "safety",
+      "tool_calling"
+    ]
+  },
+  "swe-mm": {
+    "name": "SWE-MM",
+    "categories": [
+      "agents",
+      "code",
+      "multimodal",
+      "vision"
+    ]
+  },
+  "terminal-bench-3.0": {
+    "name": "Terminal-Bench 3.0",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "webarena-verified": {
+    "name": "WebArena-Verified",
+    "categories": [
+      "agents",
+      "multimodal",
+      "vision"
+    ]
   }
 }

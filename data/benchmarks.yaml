@@ -35,9 +35,9 @@ categories:
   - name: OSWorld
     description: Columbia 出品，在完整虚拟机中完成文件管理/表格/创意软件等桌面任务的 Computer Use Agent 评测
     methodology: Agent 通过截图感知桌面并发出键鼠操作，程序化验证任务完成状态
-    sota_score: 72.7%
-    sota_model: Claude Opus 4.6
-    sota_date: 2026-05
+    sota_score: 78.8%
+    sota_model: Seed 2.1 Pro
+    sota_date: 2026-08
     source_url: https://arxiv.org/abs/2404.07972
     official_leaderboard: https://llm-stats.com/benchmarks/osworld
     is_self_reported: true
@@ -47,9 +47,9 @@ categories:
   - name: Toolathlon
     description: HKUST 出品（ICLR 2026），600+ 工具，真实软件环境中的长链工具调用任务，难度极高
     methodology: 给定工具集和任务目标，评估 Agent 能否通过多步工具调用完成，成功率评分
-    sota_score: 59.9%
-    sota_model: Claude Opus 4.8
-    sota_date: 2026-06
+    sota_score: 78.4%
+    sota_model: GLM-5.3-Flash
+    sota_date: 2026-08
     source_url: https://arxiv.org/abs/2510.25726
     official_leaderboard: https://github.com/hkust-nlp/Toolathlon
     is_self_reported: true

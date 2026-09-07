@@ -1500,5 +1500,74 @@
       "multimodal",
       "vision"
     ]
+  },
+  "agentic-if-index": {
+    "name": "Agentic IF Index (Internal)",
+    "categories": [
+      "agents",
+      "instruction_following",
+      "tool_calling"
+    ]
+  },
+  "cwe-bench": {
+    "name": "CWE-Bench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "google-real-world-vulnerability-discovery": {
+    "name": "Google Real-world Vulnerability Discovery",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "gray-swan-ipi": {
+    "name": "Gray Swan IPI Benchmark",
+    "categories": [
+      "agents",
+      "safety",
+      "tool_calling"
+    ]
+  },
+  "harveys-legal-agent-benchmark": {
+    "name": "Harvey's Legal Agent Benchmark",
+    "categories": [
+      "agents",
+      "knowledge",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "terminal-bench-4.0": {
+    "name": "Terminal-Bench 4.0",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "terminal-bench-science-0.1": {
+    "name": "Terminal-Bench-Science 0.1",
+    "categories": [
+      "agents",
+      "code",
+      "general",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "vals-finance-agent-v2": {
+    "name": "Vals Finance Agent v2",
+    "categories": [
+      "agents",
+      "finance",
+      "knowledge",
+      "reasoning"
+    ]
   }
 }

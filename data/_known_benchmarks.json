@@ -1569,5 +1569,149 @@
       "knowledge",
       "reasoning"
     ]
+  },
+  "aa-briefcase-1.1": {
+    "name": "AA-Briefcase v1.1",
+    "categories": [
+      "agents",
+      "productivity",
+      "reasoning"
+    ]
+  },
+  "automationbench-1.0.6": {
+    "name": "AutomationBench v1.0.6",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
+  },
+  "cadgenbench": {
+    "name": "CADGenBench",
+    "categories": [
+      "agents",
+      "code",
+      "engineering"
+    ]
+  },
+  "cathedralbench": {
+    "name": "CathedralBench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "cursorbench-4.0": {
+    "name": "CursorBench 4.0",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "cve-bench": {
+    "name": "CVE-Bench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "eebench": {
+    "name": "EEBench",
+    "categories": [
+      "agents",
+      "code",
+      "engineering"
+    ]
+  },
+  "frontierswe-v2": {
+    "name": "FrontierSWE V2",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "gdpval-aa-2.1": {
+    "name": "GDPval-AA 2.1",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "gdpval-elo": {
+    "name": "GDPval (Elo)",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "legal",
+      "reasoning"
+    ]
+  },
+  "jobbench": {
+    "name": "JobBench",
+    "categories": [
+      "agents",
+      "knowledge",
+      "productivity"
+    ]
+  },
+  "latchbio-capabilities": {
+    "name": "LatchBio Capabilities v1.0",
+    "categories": [
+      "agents",
+      "biology",
+      "science"
+    ]
+  },
+  "latchbio-singlecellbench": {
+    "name": "LatchBio SingleCellBench",
+    "categories": [
+      "agents",
+      "biology",
+      "science"
+    ]
+  },
+  "latchbio-spatialbench-verified": {
+    "name": "LatchBio SpatialBench Verified",
+    "categories": [
+      "agents",
+      "biology",
+      "science"
+    ]
+  },
+  "mimo-cyber-bench": {
+    "name": "MiMo Cyber Bench",
+    "categories": [
+      "agents",
+      "code",
+      "safety"
+    ]
+  },
+  "mimo-visual-coding": {
+    "name": "MiMo Visual Coding",
+    "categories": [
+      "agents",
+      "code",
+      "vision"
+    ]
+  },
+  "officeqa": {
+    "name": "OfficeQA",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "toolathlon-verified": {
+    "name": "Toolathlon-Verified",
+    "categories": [
+      "agents",
+      "reasoning",
+      "tool_calling"
+    ]
   }
 }

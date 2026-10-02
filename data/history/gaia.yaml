@@ -2,3 +2,7 @@
   model: Claude Mythos Preview
   date: 2026-05
   recorded_at: '2026-06-02'
+- score: 93.4%
+  model: CustomGPT.ai Research Lab v44
+  date: 2026-06
+  recorded_at: '2026-10-02'

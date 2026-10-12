@@ -1754,5 +1754,61 @@
       "agents",
       "healthcare"
     ]
+  },
+  "b3-ai-security-benchmark": {
+    "name": "B3 AI Security Benchmark",
+    "categories": [
+      "agents",
+      "safety"
+    ]
+  },
+  "coding-agent-index": {
+    "name": "Coding Agent Index",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "finch": {
+    "name": "Finch (FinWorkBench)",
+    "categories": [
+      "agents",
+      "finance",
+      "reasoning"
+    ]
+  },
+  "hard-negative-protein-binding-prediction": {
+    "name": "Hard negative protein binding prediction",
+    "categories": [
+      "agents",
+      "healthcare",
+      "multimodal",
+      "science"
+    ]
+  },
+  "labworkbench": {
+    "name": "Labwork Bench",
+    "categories": [
+      "agents",
+      "biology",
+      "healthcare",
+      "reasoning",
+      "science"
+    ]
+  },
+  "vals-index": {
+    "name": "Vals Index",
+    "categories": [
+      "agents",
+      "knowledge",
+      "reasoning"
+    ]
+  },
+  "vibe-code-bench": {
+    "name": "Vibe Code Bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
   }
 }

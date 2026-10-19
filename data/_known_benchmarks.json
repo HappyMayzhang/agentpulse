@@ -1810,5 +1810,34 @@
       "agents",
       "code"
     ]
+  },
+  "focusbench": {
+    "name": "FocusBench",
+    "categories": [
+      "agents",
+      "tool_calling"
+    ]
+  },
+  "memorybench": {
+    "name": "MemoryBench",
+    "categories": [
+      "agents",
+      "long_context"
+    ]
+  },
+  "personal-superintelligence-index": {
+    "name": "Personal Superintelligence Index",
+    "categories": [
+      "agents",
+      "knowledge"
+    ]
+  },
+  "terminal-bench-4.0-aa": {
+    "name": "Terminal-Bench 4.0-AA",
+    "categories": [
+      "agents",
+      "code",
+      "tool_calling"
+    ]
   }
 }

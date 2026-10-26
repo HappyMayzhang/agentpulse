@@ -1839,5 +1839,20 @@
       "code",
       "tool_calling"
     ]
+  },
+  "browsecomp-plus": {
+    "name": "BrowseComp-Plus",
+    "categories": [
+      "agents",
+      "reasoning",
+      "search"
+    ]
+  },
+  "swe-refactor-bench": {
+    "name": "SWE Refactor Bench",
+    "categories": [
+      "agents",
+      "code"
+    ]
   }
 }

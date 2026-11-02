@@ -1854,5 +1854,13 @@
       "agents",
       "code"
     ]
+  },
+  "frontiercode-2.0": {
+    "name": "FrontierCode 2.0",
+    "categories": [
+      "agents",
+      "code",
+      "reasoning"
+    ]
   }
 }

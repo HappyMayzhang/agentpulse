@@ -1862,5 +1862,44 @@
       "code",
       "reasoning"
     ]
+  },
+  "gdpval-v2": {
+    "name": "GDPval v2",
+    "categories": [
+      "agents",
+      "finance",
+      "general",
+      "reasoning"
+    ]
+  },
+  "lifeval": {
+    "name": "LifeVal",
+    "categories": [
+      "agents",
+      "general",
+      "reasoning"
+    ]
+  },
+  "ramp-swe-bench-v2": {
+    "name": "Ramp SWE-Bench v2",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "ramp-swe-bench-v2-bash": {
+    "name": "Ramp SWE-Bench v2 (Bash)",
+    "categories": [
+      "agents",
+      "code"
+    ]
+  },
+  "vals-science-index": {
+    "name": "Vals Science Index",
+    "categories": [
+      "agents",
+      "knowledge",
+      "reasoning"
+    ]
   }
 }
